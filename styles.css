@@ -1,0 +1,379 @@
+/* ==========================================================================
+   RESET GENERAL & TONO DE INVESTIGACIÓN CRÍTICA (EL COMERCIO STYLES)
+   ========================================================================== */
+body, html {
+    margin: 0; 
+    padding: 0; 
+    background-color: #f4f4f4; /* Fondo gris muy tenue para contraste */
+    font-family: 'Arial', sans-serif;
+    color: #222;
+    scroll-behavior: smooth;
+}
+
+/* Cabecera del One-Pager */
+.special-header {
+    max-width: 900px; 
+    margin: 50px auto 30px auto;
+    padding: 0 20px;
+    text-align: center;
+}
+.kicker { margin-bottom: 20px; display: flex; justify-content: center; }
+.kicker img { height: 32px; width: auto; }
+
+.headline {
+    font-family: 'Georgia', serif; 
+    font-size: 68px; font-weight: 900; color: #111;
+    line-height: 1.05; margin: 0 0 10px 0;
+    letter-spacing: -2px; 
+}
+.subheadline {
+    font-family: 'Georgia', serif;
+    font-size: 34px; font-weight: 400; color: #444;
+    line-height: 1.2; margin: 0 0 25px 0;
+}
+.intro-text {
+    font-size: 17px; color: #444; line-height: 1.6;
+    max-width: 750px; margin: 0 auto 20px auto;
+}
+.header-divider { width: 60px; height: 1px; background-color: #111; margin: 25px auto 15px auto; }
+.date-published { font-size: 13px; color: #666; font-style: italic; }
+
+/* ==========================================================================
+   BARRA INTERACTIVA DE MACRO TEMAS (ADHESIVA)
+   ========================================================================== */
+.macro-nav-bar {
+    position: sticky;
+    top: 0;
+    background: #ffffff;
+    border-top: 1px solid #e2e8f0;
+    border-bottom: 2px solid #111;
+    z-index: 2000;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+}
+.nav-container {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-around;
+    overflow-x: auto;
+    white-space: nowrap;
+}
+.nav-tab {
+    background: none;
+    border: none;
+    padding: 18px 24px;
+    font-family: 'Arial', sans-serif;
+    font-size: 14px;
+    font-weight: 900;
+    text-transform: uppercase;
+    color: #64748b;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+.nav-tab:hover {
+    color: #111;
+}
+.nav-tab.active {
+    color: #111;
+}
+.nav-tab.active::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background-color: #ffce00; /* Toque El Comercio en la barra activa */
+}
+
+/* Caja Instrucciones */
+.instrucciones-caja {
+    max-width: 800px; margin: 30px auto;
+    background-color: #ffffff; 
+    border: 1px solid #e2e8f0;
+    border-left: 4px solid #111;
+    padding: 20px; 
+    border-radius: 4px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+}
+.instrucciones-titulo { font-weight: 900; font-size: 14px; display: block; margin-bottom: 8px; text-transform: uppercase; }
+.instrucciones-caja ul { margin: 0; padding-left: 18px; }
+.instrucciones-caja li { font-size: 13.5px; line-height: 1.5; margin-bottom: 6px; color: #475569; }
+
+/* ==========================================================================
+   ARQUITECTURA DE CONTENEDORES JUNTOS CON BARRA AMARILLA (EL COMERCIO)
+   ========================================================================== */
+.comparador-wrapper {
+    max-width: 1000px;
+    margin: 0 auto 60px auto;
+    padding: 0 20px;
+}
+
+/* Ahora los bloques están juntos, sin márgenes inferiores gigantes */
+.subtema-bloque {
+    margin-bottom: 30px; /* Margen justo para separar cada sección compacta */
+    animation: fadeIn 0.4s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(4px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* La Barra Amarilla "El Comercio" para los títulos de cada tema */
+.subtema-title {
+    font-family: 'Georgia', serif;
+    font-size: 24px;
+    font-weight: 900;
+    color: #111;
+    text-align: center;
+    background-color: #ffce00; /* Amarillo clásico de El Comercio */
+    padding: 12px 20px;
+    margin: 0 0 20px 0;
+    border-radius: 6px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.split-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    align-items: stretch;
+}
+
+
+/* ==========================================================================
+   TEXTO DE NOTA (ARTÍCULO NORMAL)
+   ========================================================================== */
+.story-text {
+    max-width: 700px;
+    margin: 0 auto 40px auto;
+    padding: 0 20px;
+}
+.story-text p {
+    font-family: 'Georgia', serif;
+    font-size: 19px;
+    line-height: 1.65;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* ==========================================================================
+   BURBUJAS DE CANDIDATOS
+   ========================================================================== */
+.cand-profile-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.cand-bubbles {
+    display: flex;
+    align-items: center;
+}
+
+.bubble-img {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #fff;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    background-color: #fff;
+}
+
+/* El partido se superpone un poco a la cara del candidato para un look cohesivo */
+.bubble-img.party {
+    width: 38px;
+    height: 38px;
+    margin-left: -15px;
+    z-index: 2;
+    border: 2px solid #fff;
+}
+
+.bubble-img.face {
+    z-index: 1;
+}
+
+.cand-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* Tarjetas Electorales Internas */
+.cand-card {
+    border-radius: 6px;
+    padding: 20px 24px;
+    background: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-top: 5px solid #ccc;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+}
+
+.cand-header-sticky {
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(0,0,0,0.04);
+}
+.cand-name {
+    display: block;
+    font-size: 20px;
+    font-weight: 900;
+    text-transform: uppercase;
+}
+.cand-party {
+    display: block;
+    font-size: 11px;
+    color: #64748b;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: 2px;
+}
+
+.quote-text {
+    font-size: 15.5px;
+    line-height: 1.6;
+    color: #111;
+    font-style: italic;
+    margin: 0 0 15px 0;
+}
+
+.meta-data {
+    font-size: 12px;
+    color: #64748b;
+    margin-bottom: 16px;
+}
+.meta-data a {
+    color: #111;
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+/* ALERTA EN ROJO DE CAMBIO DE POSTURA */
+.alerta-cambio {
+    display: table;
+    background-color: #d32f2f;
+    color: white;
+    font-family: 'Arial', sans-serif;
+    font-size: 11px;
+    font-weight: 900;
+    padding: 4px 8px;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    animation: sutilPulse 2s infinite;
+}
+@keyframes sutilPulse {
+    0% { box-shadow: 0 0 0 0 rgba(211, 47, 47, 0.4); }
+    70% { box-shadow: 0 0 0 5px rgba(211, 47, 47, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(211, 47, 47, 0); }
+}
+
+/* Componente Flip-Flop */
+.btn-flipflop {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: #fff;
+    border: 1.5px solid;
+    padding: 8px 14px;
+    border-radius: 4px;
+    font-size: 12.5px;
+    font-weight: 900;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: all 0.2s ease;
+}
+.btn-flipflop.activo {
+    background: #111 !important;
+    color: #fff !important;
+    border-color: #111 !important;
+}
+
+.contradiccion-box {
+    margin-top: 15px;
+    padding: 15px;
+    background: #fdfdfd;
+    border-radius: 4px;
+    border: 1px solid #eaeaea;
+}
+.contradiccion-label {
+    display: block;
+    font-size: 10.5px;
+    font-weight: 900;
+    text-transform: uppercase;
+    color: #d32f2f;
+    margin-bottom: 6px;
+}
+.quote-text-old {
+    font-size: 14px;
+    line-height: 1.5;
+    color: #444;
+    font-style: italic;
+    margin: 0 0 8px 0;
+}
+
+/* Bloque Plan de Gobierno */
+.plan-badge {
+    margin-top: 15px;
+    padding: 12px;
+    background: #fdfdfd;
+    border-radius: 4px;
+    font-size: 12.5px;
+    line-height: 1.45;
+    color: #333;
+    border-left: 3px solid #888;
+    border-top: 1px solid #eaeaea;
+    border-right: 1px solid #eaeaea;
+    border-bottom: 1px solid #eaeaea;
+}
+.plan-badge-title {
+    display: block;
+    font-size: 10px;
+    font-weight: 900;
+    text-transform: uppercase;
+    color: #111;
+    margin-bottom: 3px;
+}
+
+/* Footer Créditos */
+.special-credits-black {
+    background-color: #111111;
+    color: #ffffff;
+    padding: 55px 20px;
+    text-align: center;
+}
+.credits-logo-container { margin-top: 35px; }
+.credits-logo-container img { height: 40px; filter: brightness(0) invert(1); }
+.copyright-text { font-size: 11px; color: #64748b; margin-top: 12px; }
+
+.credits-main-title { font-family: 'Georgia', serif; font-size: 18px; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 35px; }
+.credit-block { margin-bottom: 20px; }
+.credit-role { font-size: 11px; font-weight: bold; text-transform: uppercase; color: #94a3b8; margin-bottom: 4px; display: block; }
+.credit-name { font-family: 'Georgia', serif; font-size: 16px; }
+
+/* ==========================================================================
+   MEDIA QUERIES MÓVIL
+   ========================================================================== */
+@media (max-width: 800px) {
+    .headline { font-size: 44px; letter-spacing: -1px; }
+    .subheadline { font-size: 26px; }
+    .split-layout { grid-template-columns: 1fr; gap: 15px; }
+    .nav-tab { padding: 14px 12px; font-size: 12px; }
+    .subtema-bloque { margin-bottom: 25px; }
+    .subtema-title { font-size: 20px; }
+}
