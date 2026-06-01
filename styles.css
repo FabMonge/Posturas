@@ -39,17 +39,20 @@ body, html {
 .date-published { font-size: 13px; color: #666; font-style: italic; }
 
 /* ==========================================================================
-   BARRA INTERACTIVA DE MACRO TEMAS (ADHESIVA)
+   BARRA INTERACTIVA DE MACRO TEMAS - FONDO AMARILLO CONTINUO
    ========================================================================== */
 .macro-nav-bar {
     position: sticky;
     top: 0;
-    background: #ffffff;
-    border-top: 1px solid #e2e8f0;
-    border-bottom: 2px solid #111;
+    background-color: #ffce00; /* Fondo amarillo continuo para toda la barra */
+    border-top: 1px solid #e6ba00;
+    border-bottom: 3px solid #111;
     z-index: 2000;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    margin-bottom: 12px;
+
 }
+
 .nav-container {
     max-width: 1100px;
     margin: 0 auto;
@@ -57,16 +60,19 @@ body, html {
     justify-content: space-around;
     overflow-x: auto;
     white-space: nowrap;
+    scrollbar-width: none;
+    
 }
+
 .nav-tab {
-    background: none;
+    background: transparent; /* Hereda el color continuo de la barra */
     border: none;
     padding: 18px 24px;
     font-family: 'Arial', sans-serif;
     font-size: 14px;
     font-weight: 900;
     text-transform: uppercase;
-    color: #64748b;
+    color: #111;
     cursor: pointer;
     position: relative;
     transition: all 0.2s ease;
@@ -74,35 +80,71 @@ body, html {
     align-items: center;
     gap: 6px;
 }
+
 .nav-tab:hover {
-    color: #111;
+    background-color: rgba(0,0,0,0.05); /* Sutil feedback táctil */
 }
+
 .nav-tab.active {
     color: #111;
+    background-color: rgba(255,255,255,0.3); /* Resalta la pestaña activa sutilmente */
 }
+
 .nav-tab.active::after {
     content: '';
     position: absolute;
-    bottom: 0;
+    bottom: -3px; /* Cubre exactamente el borde de la barra madre */
     left: 0;
     width: 100%;
     height: 4px;
-    background-color: #ffce00; /* Toque El Comercio en la barra activa */
+    background-color: #111;
 }
 
-/* Caja Instrucciones */
-.instrucciones-caja {
-    max-width: 800px; margin: 30px auto;
-    background-color: #ffffff; 
-    border: 1px solid #e2e8f0;
-    border-left: 4px solid #111;
-    padding: 20px; 
-    border-radius: 4px;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+/* ==========================================================================
+   ARQUITECTURA DE CONTENEDORES - TÍTULOS EN FONDO NEGRO
+   ========================================================================== */
+.comparador-wrapper {
+    max-width: 1000px;
+    margin: 0 auto 60px auto;
+    padding: 0 20px;
 }
-.instrucciones-titulo { font-weight: 900; font-size: 14px; display: block; margin-bottom: 8px; text-transform: uppercase; }
-.instrucciones-caja ul { margin: 0; padding-left: 18px; }
-.instrucciones-caja li { font-size: 13.5px; line-height: 1.5; margin-bottom: 6px; color: #475569; }
+
+.subtema-bloque {
+    margin-bottom: 30px; 
+    animation: fadeIn 0.4s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(4px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.subtema-title {
+    font-family: 'Georgia', serif;
+    font-size: 24px;
+    font-weight: 900;
+    color: #ffffff; /* Letras blancas exigidas */
+    background-color: #111111; /* Fondo negro absoluto exigido */
+    text-align: center;
+    padding: 12px 20px;
+    margin: 0 0 20px 0;
+    border-radius: 6px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+/* ==========================================================================
+   GRID DE TARJETAS - AJUSTE DE ALTURA DINÁMICA
+   ========================================================================== */
+.split-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    align-items: start !important; /* CRUCIAL: Reemplaza el 'stretch'. Permite que cada tarjeta mida solo lo que necesita su contenido */
+}
 
 /* ==========================================================================
    ARQUITECTURA DE CONTENEDORES JUNTOS CON BARRA AMARILLA (EL COMERCIO)
@@ -129,9 +171,9 @@ body, html {
     font-family: 'Georgia', serif;
     font-size: 24px;
     font-weight: 900;
-    color: #111;
+    color: #ffffff;
     text-align: center;
-    background-color: #ffce00; /* Amarillo clásico de El Comercio */
+    background-color: #111; /* Amarillo clásico de El Comercio */
     padding: 12px 20px;
     margin: 0 0 20px 0;
     border-radius: 6px;

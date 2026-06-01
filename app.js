@@ -1,4 +1,30 @@
 // ==========================================================================
+// CONFIGURACIÓN Y ESTADO GLOBAL (Modularidad ECData)
+// ==========================================================================
+const CONFIG_UI = {
+    candidatos: {
+        "Keiko Fujimori": {
+            nombre: "Keiko Fujimori",
+            partido: "Fuerza Popular",
+            colorPrincipal: "#F37021",
+            colorFondo: "#fffbf7",
+            fotoCandidato: "https://fabmonge.github.io/Posturas/fotos/keiko_derecha.png",
+            fotoPartido: "https://fabmonge.github.io/Posturas/fotos/fp.png"
+        },
+        "Roberto Sánchez": {
+            nombre: "Roberto Sánchez",
+            partido: "Juntos por el Perú",
+            colorPrincipal: "#009639",
+            colorFondo: "#f5fcf7",
+            fotoCandidato: "https://fabmonge.github.io/Posturas/fotos/sanchez_izquierda.png",
+            fotoPartido: "https://fabmonge.github.io/Posturas/fotos/JP.png"
+        }
+    }
+};
+
+let categoriaActual = "economia";
+
+// ==========================================================================
 // DATA MAESTRA HARDCODEADA (ECDATA FIABLE - NO CORS ERRORS)
 // ==========================================================================
 const BASE_DATOS_ELECTORAL = [
@@ -12,19 +38,19 @@ const BASE_DATOS_ELECTORAL = [
                     "reciente": "Petro-Perú se convertirá en una asociación público privada (APP). El Estado, por supuesto, seguirá participando; pero haremos que el sector privado integre, participe, porque esto dará mayor transparencia y será mucho más eficiente.",
                     "fecha_reciente": "19 de marzo de 2026",
                     "fuente_reciente": "https://canaln.pe/actualidad/keiko-fujimori-propone-asociacion-publico-privada-petroperu-y-cuestiona-aporte-estatal-n491005",
-                    "anterior": "En lo que relaciona a Petro-Perú. Es importante hacer una reforma profunda en donde se pida transparencia. Creemos que una fórmula de alianza público-privada, el sector público continuará dirigiendo Petro-Perú; pero la presencia de inversionistas privados y de otros organismos permitirá hacer una reforma y enfocar a esta empresa en los sectores que más convienen a nuestro país, me referiero al refinamiento y la distribución, mas no a la exploración y otros aspectos que han llevado a un gasto excesivo.",
+                    "anterior": "En lo que relaciona a Petro-Perú. Es importante hacer una reforma profunda en donde se pida transparencia. Creemos que una fórmula de alianza público-privada, el sector público continuará dirigiendo Petro-Perú; pero la presencia de inversionistas privados y de otros organismos permitirá hacer una reforma y enfocar a esta empresa en los sectores que más convienen a nuestro país...",
                     "fecha_anterior": "30 de enero de 2026",
                     "fuente_anterior": "https://www.facebook.com/canalnoficial/videos/keiko-fujimori-candidata-presidencial-de-fuerza-popular-dijo-que-es-importante-u/1448221170356046/",
-                    "plan": "Optimización de la operación de Petroperú: la empresa estatal se concentrará exclusivamente en las actividades de refinamiento y distribución, garantizando sostenibilidad financiera, eficiencia operativa y transparencia en la Refinería de Talara. La gestión de la venta de activos no estratégicos de Petroperú para reducir pasivos, mejorar su flujo de caja y redireccionar recursos en las operaciones de mayor rentabilidad y valor público."
+                    "plan": "Optimización de la operación de Petroperú: la empresa estatal se concentrará exclusivamente en las actividades de refinamiento y distribución..."
                 },
                 "roberto": {
-                    "reciente": "¡No a la privatización de Petro-Perú!. Una política económica nacional responsable no puede 'rematar' uno de los activos más importantes para el desarrollo estratégico del Perú. El mercantilismo neoliberal aliado de la derecha empresarial es incapaz de pensar en los 34 millones de peruanos y en su bienestar estratégico. ¡Petro-Perú no se vende! ¡Petro-Perú se defiende!",
+                    "reciente": "¡No a la privatización de Petro-Perú!. Una política económica nacional responsable no puede 'rematar' uno de los activos más importantes para el desarrollo estratégico del Perú...",
                     "fecha_reciente": "01 de enero de 2026",
                     "fuente_reciente": "https://x.com/RobertoSanchP/status/2006926040216522914",
                     "anterior": "¡Petro-Perú no se vende!. Como peruano y patriota comprometido con el país, lo digo con total claridad: un gobierno sin legitimidad no tiene derecho a decidir el futuro de nuestro patrimonio energético.",
                     "fecha_anterior": "03 de enero de 2026",
                     "fuente_anterior": "https://www.facebook.com/RobertoSanchez.Oficial/photos/petroper%C3%BA-no-se-vendecomo-peruano-y-patriota-comprometido-con-el-pa%C3%ADs-lo-digo-co/1543207091140103/",
-                    "plan": "Estarán prohibidas las concesiones que otorguen ventajas especiales a inversionistas extranjeros, que pongan en riesgo la soberanía territorial y nuestra matriz energética, que coloquen en desventaja al empresariado nacional o que vayan contra el interés público."
+                    "plan": "Estarán prohibidas las concesiones que otorguen ventajas especiales a inversionistas extranjeros..."
                 }
             },
             {
@@ -42,7 +68,7 @@ const BASE_DATOS_ELECTORAL = [
                     "reciente": "Estamos en la capacidad de visitarlo, conversar con él [Velarde], tomar un buen café de Quillabamba o de Jaén, dialogar nuestros puntos en desencuentro en el marco de lo que ha dicho JPP. Reafirmamos y hemos dicho que la autonomía del BCR la defendemos",
                     "fecha_reciente": "18 de abril de 2026",
                     "fuente_reciente": "https://web.facebook.com/reel/3003210329875901",
-                    "anterior": "Señor Julio Velarde, usted ya fue desfasado. Nuestro gobierno no lo sostendrá ni un día en el gobierno del pueblo (...) No nos representa, en nuestro primer día de gobierno lo vamos a echar porque es usted una vergüenza. Solamente ha gobernado para mantener contentos y felices a las empresas transnacionales, a sus amos",
+                    "anterior": "Señor Julio Velarde, usted ya fue desfasado. Nuestro gobierno no lo sostendrá ni un día en el gobierno del pueblo (...) No nos representa, en nuestro primer día de gobierno lo vamos a echar porque es usted una vergüenza.",
                     "fecha_anterior": "29 de marzo de 2026",
                     "fuente_anterior": "https://www.youtube.com/watch?v=sAe0CDro8bs",
                     "plan": "No se detalla"
@@ -63,7 +89,7 @@ const BASE_DATOS_ELECTORAL = [
                     "reciente": "El régimen económico instalado en el 93, bajo una dictadura, solo ha enriquecido a los ricos abandonando a la mayoría de los peruanos",
                     "fecha_reciente": "24 de marzo de 2026",
                     "fuente_reciente": "https://www.youtube.com/watch?v=-ycJcQgSmoo",
-                    "anterior": "El año pasado [2024], estas empresas [agroexportadoras] aumentaron sus ganancias en 70% y ahora quieren pagar menos impuestos, quitándole S/ 2,000 millones anuales a la recaudación tributaria necesaria para inversión social. No es justo, no es sensato y solo beneficia a los que más tienen. Desde Juntos por el Perú votamos en contra de leyes que no permitan una tributación justa",
+                    "anterior": "El año pasado [2024], estas empresas [agroexportadoras] aumentaron sus ganancias en 70% y ahora quieren pagar menos impuestos... No es justo, no es sensato y solo beneficia a los que más tienen.",
                     "fecha_anterior": "14 de agosto de 2025",
                     "fuente_anterior": "https://www.tiktok.com/@roberto.snchez.pa/video/7538589361009446162",
                     "plan": "Crear un sistema tributario progresivo: impuesto a grandes fortunas en situación de crisis, eliminación de exoneraciones y cierre de brechas de evasión."
@@ -75,7 +101,7 @@ const BASE_DATOS_ELECTORAL = [
                     "reciente": "Estoy a favor de las inversiones. Tenemos que mostrar predictibilidad a los inversores, que el Estado cumple con su palabra, que las reglas tanto de ellos como del Estado se tiene que cumplir.",
                     "fecha_reciente": "10 de abril de 2026",
                     "fuente_reciente": "https://www.youtube.com/watch?v=nDRkBYCnXPw",
-                    "anterior": "También tenemos que generar predictibilidad y confianza. Si de algo se caracteriza nuestro grupo político a lo largo de todos estos años es que hemos defendido la constitución, defendemos el estado de derecho, defendemos las normas claras",
+                    "anterior": "También tenemos que generar predictibilidad y confianza. Si de algo se caracteriza nuestro grupo político a lo largo de todos estos años es que hemos defendido la constitución...",
                     "fecha_anterior": "17 de marzo de 2026",
                     "fuente_anterior": "https://www.youtube.com/watch?v=kKFJiSsUzJY",
                     "plan": "Establecimiento de plazos máximos y vinculantes para autorizaciones sectoriales, evitando que inversiones estratégicas queden paralizadas indefinidamente."
@@ -89,6 +115,27 @@ const BASE_DATOS_ELECTORAL = [
                     "fuente_anterior": "https://www.youtube.com/watch?v=Ve1OvCiuTZk",
                     "plan": "Asimismo, se eliminará en la Nueva Constitución el aval a los contratos Ley y los regímenes tributarios y laborales, que sólo favorecen a las grandes empresas en detrimento de los trabajadores y el interés público en general."
                 }
+            },
+            {
+                "name": "Nueva Constitución / Modelo Económico",
+                "keiko": {
+                    "reciente": "La constitución de 1993 le dio autonomía a varias instituciones políticas de nuestro país, entre ellas al BCR, lo que ha permitido que nuestra moneda se convierta en una de las más sólidas y líderes en América Latina...",
+                    "fecha_reciente": "30 de enero de 2024",
+                    "fuente_reciente": "https://www.tiktok.com/@keikofujimorih/video/7329919466064661765",
+                    "anterior": "Fuerza Popular va a seguir defendiendo la constitución de 1993",
+                    "fecha_anterior": "05 de agosto de 2023",
+                    "fuente_anterior": "https://www.youtube.com/watch?v=DEBn8RyXpW8",
+                    "plan": "Con liderazgo, eficiencia y resultados, el objetivo es claro: alcanzar un Perú con fuerza, donde el orden sea el punto de partida..."
+                },
+                "roberto": {
+                    "reciente": "Haremos un nuevo pacto social, una asamblea constituyente, una nueva constitución que marque el inicio de la nueva peruanidad del siglo XXI",
+                    "fecha_reciente": "28 de marzo de 2026",
+                    "fuente_reciente": "https://www.facebook.com/reel/1267618274777130",
+                    "anterior": "Es importante un nuevo comienzo patriótico y de soberanía con una nueva constitución...",
+                    "fecha_anterior": "22 de marzo de 2026",
+                    "fuente_anterior": "https://www.youtube.com/watch?v=h_A7atnJYSY&t=817s",
+                    "plan": "La razón fundamental por la que debe hacerse una reforma sustancial de la Constitución es recuperar la soberanía nacional sobre los recursos naturales..."
+                }
             }
         ]
     },
@@ -99,13 +146,13 @@ const BASE_DATOS_ELECTORAL = [
             {
                 "name": "Salida de la CIDH / Pena de muerte",
                 "keiko": {
-                    "reciente": "Yo creo que para derrotar al terrorismo no se necesitó la pena de muerte, y creo que ahora tampoco. Lo que sí creo es que vamos a tener que salir del Pacto de San José por dos razones: Una, porque creo que hay que implementar temporalmente los jueces sin rostro... Y lo segundo que tenemos que implementar es que los internos tienen que trabajar por sus alimentos de calidad.",
+                    "reciente": "Yo creo que para derrotar al terrorismo no se necesitó la pena de muerte, y creo que ahora tampoco. Lo que sí creo es que vamos a tener que salir del Pacto de San José por dos razones...",
                     "fecha_reciente": "09 de abril de 2026",
                     "fuente_reciente": "https://www.youtube.com/watch?v=wLjS-EhR6-M",
                     "anterior": "Estaría de acuerdo en la pena de muerte para violadores de niños menores de 7 años.",
                     "fecha_anterior": "09 de febrero de 2016",
                     "fuente_anterior": "https://www.youtube.com/watch?v=Al6aRTvH-ec",
-                    "plan": "Implementación de un régimen de trabajo penitenciario, que vincule la participación en actividades productivas al otorgamiento de incentivos, tal como el acceso a condiciones de la alimentación."
+                    "plan": "Implementación de un régimen de trabajo penitenciario, que vincule la participación en actividades productivas al otorgamiento de incentivos..."
                 },
                 "roberto": {
                     "reciente": "No estamos de acuerdo con denunciar al Pacto de San José, de ninguna manera (...) Queremos paz social con justicia, mano firme con el debido proceso, los derechos humanos no son un aspecto secundario",
@@ -120,16 +167,16 @@ const BASE_DATOS_ELECTORAL = [
             {
                 "name": "Control fronterizo y Migración",
                 "keiko": {
-                    "reciente": "Nosotros hemos planteado […] retomar el control de las fronteras. Hoy hay un solo patrullero en la frontera con Ecuador. Vamos a comprar 1.000 patrulleros inmediatamente, pidiendo facultades. Participarán las Fuerzas Armadas junto con la Policía Nacional en este control de fronteras. Expulsaremos a los ciudadanos indocumentados.",
+                    "reciente": "Nosotros hemos planteado […] retomar el control de las fronteras. Hoy hay un solo patrullero en la frontera con Ecuador. Vamos a comprar 1.000 patrulleros inmediatamente...",
                     "fecha_reciente": "11 de abril de 2026",
                     "fuente_reciente": "https://www.youtube.com/watch?v=CYc9A-Q2J_g",
                     "anterior": "",
                     "fecha_anterior": "",
                     "fuente_anterior": "",
-                    "plan": "Refuerzo del patrullaje en zonas críticas mediante la reorientación del 24x24, priorizando presencia policial efectiva en provincias y fronteras, mediante análisis geoespacial del delito."
+                    "plan": "Refuerzo del patrullaje en zonas críticas mediante la reorientación del 24x24, priorizando presencia policial efectiva en provincias y fronteras..."
                 },
                 "roberto": {
-                    "reciente": "Si bien es cierto el Perú siempre es solidario con cualquier nacionalidad de nuestros hermanos latinoamericanos. Pero también hay que ser bien responsables cuando se permite una inmigración desordenada, una inmigración que más bien ni le da seguridad al compatriota internacional y más bien incrementa la inseguridad en el otro país. Antes de luchar por un empleo, yo prefiero que ese empleo lo tenga un peruano.",
+                    "reciente": "Si bien es cierto el Perú siempre es solidario con cualquier nacionalidad de nuestros hermanos latinoamericanos. Pero también hay que ser bien responsables cuando se permite una inmigración desordenada...",
                     "fecha_reciente": "16 de marzo de 2026",
                     "fuente_reciente": "https://www.youtube.com/watch?v=Ve1OvCiuTZk",
                     "anterior": "",
@@ -157,33 +204,6 @@ const BASE_DATOS_ELECTORAL = [
                     "fecha_anterior": "",
                     "fuente_anterior": "",
                     "plan": "Derogatoria de los marcos de impunidad de economías ilegales y fortalecimiento de la fiscalización comunal territorial."
-                }
-            }
-        ]
-    },
-    {
-        "id": "institucional",
-        "title": "Institucional",
-        "subtopics": [
-            {
-                "name": "Nueva Constitución / Modelo Económico",
-                "keiko": {
-                    "reciente": "La constitución de 1993 le dio autonomía a varias instituciones políticas de nuestro país, entre ellas al BCR, lo que ha permitido que nuestra moneda se convierta en una de las más sólidas y líderes en América Latina. Logró el mayor crecimiento económico de nuestra historia. Logró reducir la pobreza, pasamos del 55% en 1990 a aproximadamente 20% en el 2018.",
-                    "fecha_reciente": "30 de enero de 2024",
-                    "fuente_reciente": "https://www.tiktok.com/@keikofujimorih/video/7329919466064661765",
-                    "anterior": "Fuerza Popular va a seguir defendiendo la constitución de 1993",
-                    "fecha_anterior": "05 de agosto de 2023",
-                    "fuente_anterior": "https://www.youtube.com/watch?v=DEBn8RyXpW8",
-                    "plan": "Con liderazgo, eficiencia y resultados, el objetivo es claro: alcanzar un Perú con fuerza, donde el orden sea el punto de partida para vivir con dignidad, trabajar con libertad, emprender con esperanza e invertir con confianza"
-                },
-                "roberto": {
-                    "reciente": "Haremos un nuevo pacto social, una asamblea constituyente, una nueva constitución que marque el inicio de la nueva peruanidad del siglo XXI",
-                    "fecha_reciente": "28 de marzo de 2026",
-                    "fuente_reciente": "https://www.facebook.com/reel/1267618274777130",
-                    "anterior": "Es importante un nuevo comienzo patriótico y de soberanía con una nueva constitución. Nuestra constitución, que ha convertido todo en negocio, hoy es un monstruo porque han hecho una asamblea constituyente a puertas cerradas quitando el derecho de referéndum al pueblo",
-                    "fecha_anterior": "22 de marzo de 2026",
-                    "fuente_anterior": "https://www.youtube.com/watch?v=h_A7atnJYSY&t=817s",
-                    "plan": "La razón fundamental por la que debe hacerse una reforma sustancial de la Constitución es recuperar la soberanía nacional sobre los recursos naturales que pertenecen a las poblaciones que integran la nación peruana."
                 }
             }
         ]
@@ -238,30 +258,9 @@ const BASE_DATOS_ELECTORAL = [
     }
 ];
 
-
-const CONFIG_UI = {
-    candidatos: {
-        "Keiko Fujimori": {
-            nombre: "Keiko Fujimori",
-            partido: "Fuerza Popular",
-            colorPrincipal: "#F37021",
-            colorFondo: "#fffbf7",
-            fotoCandidato: "fotos/keiko.png",
-            fotoPartido: "fotos/fp.png"
-        },
-        "Roberto Sánchez": {
-            nombre: "Roberto Sánchez",
-            partido: "Juntos por el Perú",
-            colorPrincipal: "#009639",
-            colorFondo: "#f5fcf7",
-            fotoCandidato: "fotos/sanchez.png",
-            fotoPartido: "fotos/JP.png"
-        }
-    }
-};
-
-let categoriaActual = "economia";
-
+// ==========================================================================
+// LÓGICA DE INTERFAZ E INYECCIÓN EN EL DOM
+// ==========================================================================
 document.addEventListener("DOMContentLoaded", () => {
     cambiarMacroCategoria(categoriaActual);
 });
@@ -317,7 +316,6 @@ function cambiarMacroCategoria(idCategoria) {
 function armarTarjeta(perfilData, configCand, nombreSubtema) {
     if (!perfilData || (!perfilData.reciente && !perfilData.plan)) {
         return `
-        
         <article class="cand-card" style="border-top-color: ${configCand.colorPrincipal}; background-color: ${configCand.colorFondo}">
             <div class="cand-header-sticky">
                 <div class="cand-profile-row">
@@ -333,7 +331,6 @@ function armarTarjeta(perfilData, configCand, nombreSubtema) {
             </div>
             <p class="quote-text" style="color:#888; font-style:normal;">Sin declaraciones públicas ni mención en plan de gobierno sobre este eje.</p>
         </article>
-
         `;
     }
 
@@ -347,19 +344,22 @@ function armarTarjeta(perfilData, configCand, nombreSubtema) {
         htmlCita = `<p class="quote-text" style="color:#777; font-style:normal;">Sin declaraciones verbales recientes registradas en prensa.</p>`;
     }
 
-    // Lógica para evidenciar explícitamente el CAMBIO DE POSTURA puntualizado por el usuario
+    // Validación rigurosa de contradicción (Solo se pinta si hay cambio de postura)
+    let esCambioPostura = false;
     let alertaCambioHtml = "";
     let autoAbrir = false;
+
     if (
         (configCand.nombre === "Roberto Sánchez" && nombreSubtema.toLowerCase().includes("bcr")) ||
         (configCand.nombre === "Keiko Fujimori" && nombreSubtema.toLowerCase().includes("cidh"))
     ) {
+        esCambioPostura = true;
         alertaCambioHtml = `<div class="alerta-cambio">🚨 ALERTA de Cambio de Postura</div>`;
         autoAbrir = true;
     }
 
     let htmlFlipFlop = "";
-    if (perfilData.anterior) {
+    if (perfilData.anterior && esCambioPostura) {
         htmlFlipFlop = `
         ${alertaCambioHtml}
         <button class="btn-flipflop ${autoAbrir ? 'activo' : ''}" style="color: ${autoAbrir ? '#fff' : configCand.colorPrincipal}; background-color: ${autoAbrir ? configCand.colorPrincipal : '#fff'}; border-color: ${configCand.colorPrincipal}" onclick="toggleArchivoHistorico(this)">
@@ -380,17 +380,21 @@ function armarTarjeta(perfilData, configCand, nombreSubtema) {
         `;
     }
 
-    let htmlPlan = "";
-    if (perfilData.plan && perfilData.plan !== "Sin mención" && perfilData.plan !== "No se detalla" && perfilData.plan !== "No hay mención") {
-        htmlPlan = `
-        <div class="plan-badge" style="border-left-color: ${configCand.colorPrincipal}">
-            <span class="plan-badge-title">Plan de Gobierno Oficial:</span>
-            ${perfilData.plan}
-        </div>
-        `;
+    // Lógica para capturar planes vacíos e imprimir explícitamente "No se menciona"
+    let textoPlan = perfilData.plan;
+    const planesVacios = ["sin mención", "no se detalla", "no hay mención", ""];
+    
+    if (!textoPlan || planesVacios.includes(textoPlan.toLowerCase().trim())) {
+        textoPlan = "No se menciona.";
     }
 
-    
+    let htmlPlan = `
+    <div class="plan-badge" style="border-left-color: ${configCand.colorPrincipal}">
+        <span class="plan-badge-title">Plan de Gobierno Oficial:</span>
+        ${textoPlan}
+    </div>
+    `;
+
     return `
     <article class="cand-card" style="border-top-color: ${configCand.colorPrincipal}; background-color: ${configCand.colorFondo}">
         <div>
@@ -414,7 +418,6 @@ function armarTarjeta(perfilData, configCand, nombreSubtema) {
         </div>
     </article>
     `;
-
 }
 
 window.toggleArchivoHistorico = function(btnElement) {
