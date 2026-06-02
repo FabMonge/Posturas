@@ -189,7 +189,7 @@ const BASE_DATOS_ELECTORAL = [
     },
     {
         "id": "genero",
-        "title": "Género y Derechos",
+        "title": "Género",
         "subtopics": [
             {
                 "name": "Aborto",
