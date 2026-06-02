@@ -8,16 +8,16 @@ const CONFIG_UI = {
             partido: "Fuerza Popular",
             colorPrincipal: "#F37021",
             colorFondo: "#fffbf7",
-            fotoCandidato: "fotos/keiko.png",
-            fotoPartido: "fotos/fp.png"
+            fotoCandidato: "https://fabmonge.github.io/Posturas/fotos/keiko_derecha.png",
+            fotoPartido: "https://fabmonge.github.io/Posturas/fotos/fp.png"
         },
         "Roberto Sánchez": {
             nombre: "Roberto Sánchez",
             partido: "Juntos por el Perú",
             colorPrincipal: "#009639",
             colorFondo: "#f5fcf7",
-            fotoCandidato: "fotos/sanchez.png",
-            fotoPartido: "fotos/JP.png"
+            fotoCandidato: "https://fabmonge.github.io/Posturas/fotos/sanchez_izquierda.png",
+            fotoPartido: "https://fabmonge.github.io/Posturas/fotos/JP.png"
         }
     }
 };
@@ -25,7 +25,7 @@ const CONFIG_UI = {
 let categoriaActual = "economia";
 
 // ==========================================================================
-// DATA MAESTRA HARDCODEADA (ECDATA FIABLE - EXTRACCIÓN XLSX)
+// DATA MAESTRA HARDCODEADA (EXTRACCIÓN LITERAL)
 // ==========================================================================
 const BASE_DATOS_ELECTORAL = [
     {
@@ -75,7 +75,7 @@ const BASE_DATOS_ELECTORAL = [
                 }
             },
             {
-                "name": "Rol del BCR / Velarde",
+                "name": "Rol del BCR / Julio Velarde",
                 "keiko": {
                     "reciente": "\"El Perú, por ejemplo, cuando tuvo la hiperinflación, aprendió que lo que necesitábamos tener era un Banco Central de Reserva autónomo e independiente\".",
                     "fecha_reciente": "09 de abril de 2026",
@@ -96,7 +96,7 @@ const BASE_DATOS_ELECTORAL = [
                 }
             },
             {
-                "name": "Reforma tributaria / Impuestos",
+                "name": "Reforma tributaria / impuestos",
                 "keiko": {
                     "reciente": "",
                     "fecha_reciente": "",
@@ -144,7 +144,7 @@ const BASE_DATOS_ELECTORAL = [
         "title": "Seguridad y Economías Ilegales",
         "subtopics": [
             {
-                "name": "Salida de la CIDH / Pena de muerte",
+                "name": "Salida de la CIDH / pena de muerte",
                 "keiko": {
                     "reciente": "\"Yo creo que para derrotar al terrorismo no se necesitó la pena de muerte, y creo que ahora tampoco. Lo que sí creo es que vamos a tener que salir del Pacto de San José por dos razones: Una, porque creo que hay que implementar temporalmente los jueces sin rostro. Porque hoy el temor y el miedo no solamente están en la calle, en los transportistas, en los bodegueros. Sino también en el sistema de justicia. Yo creo que parte de esta sensación de impunidad es también por el miedo que tienen los jueces, y por eso tenemos que volver a poner temporalmente el sistema jueces sin rostro, para eso tenemos que salir del pacto. Y lo segundo que tenemos que implementar es que los internos tienen que trabajar por sus alimentos de calidad\".",
                     "fecha_reciente": "09 de abril de 2026",
@@ -165,7 +165,7 @@ const BASE_DATOS_ELECTORAL = [
                 }
             },
             {
-                "name": "Control fronterizo y Migración",
+                "name": "Control fronterizo y migración",
                 "keiko": {
                     "reciente": "\"Nosotros hemos planteado […] retomar el control de las fronteras. Hoy hay un solo patrullero en la frontera con Ecuador. Vamos a comprar 1.000 patrulleros inmediatamente, pidiendo facultades. Participarán las Fuerzas Armadas junto con la Policía Nacional en este control de fronteras. Expulsaremos a los ciudadanos indocumentados\".",
                     "fecha_reciente": "11 de abril de 2026",
@@ -176,36 +176,15 @@ const BASE_DATOS_ELECTORAL = [
                     "plan": "Refuerzo del patrullaje en zonas críticas mediante la reorientación del 24x24, priorizando presencia policial efectiva en provincias y fronteras, mediante análisis geoespacial del delito."
                 },
                 "roberto": {
-                    "reciente": "\"Si bien es cierto el Perú siempre es solidario con cualquier nacionalidad de nuestros hermanos latinoamericanos. Pero también hay que ser bien responsables cuando se permite una inmigración desordenada, una inmigración que más bien ni le da seguridad al compatriota internacional y más bien incrementa la inseguridad en el otro país. Antes de luchar por un empleo, yo prefiero que ese empleo lo tenga un peruano\".",
-                    "fecha_reciente": "16 de marzo de 2026",
-                    "fuente_reciente": "https://www.youtube.com/watch?v=Ve1OvCiuTZk",
+                    "reciente": "",
+                    "fecha_reciente": "",
+                    "fuente_reciente": "",
                     "anterior": "",
                     "fecha_anterior": "",
                     "fuente_anterior": "",
                     "plan": "No hay mención"
                 }
             },
-            {
-                "name": "Minería / Reinfo",
-                "keiko": {
-                    "reciente": "\"Apoyo a la formalización de la pequeña minería artesanal mediante un marco regulatorio eficiente que deje de lado la burocracia del Reinfo pero garantice la fiscalización ambiental y la inversión tecnológica\".",
-                    "fecha_reciente": "15 de marzo de 2026",
-                    "fuente_reciente": "https://elcomercio.pe",
-                    "anterior": "",
-                    "fecha_anterior": "",
-                    "fuente_anterior": "",
-                    "plan": "Formalización minera con incentivos tributarios y simplificación administrativa de los procesos sectoriales."
-                },
-                "roberto": {
-                    "reciente": "\"El Reinfo ha sido utilizado muchas veces por las grandes mafias de la minería ilegal para encubrir la explotación laboral y destrucción ecológica. Necesitamos una reforma agraria y ambiental integral que defienda la soberanía minera de los pueblos\".",
-                    "fecha_reciente": "22 de marzo de 2026",
-                    "fuente_reciente": "https://elcomercio.pe",
-                    "anterior": "",
-                    "fecha_anterior": "",
-                    "fuente_anterior": "",
-                    "plan": "Derogatoria de los marcos de impunidad de economías ilegales y fortalecimiento de la fiscalización comunal territorial."
-                }
-            }
         ]
     },
     {
@@ -230,11 +209,11 @@ const BASE_DATOS_ELECTORAL = [
                     "anterior": "",
                     "fecha_anterior": "",
                     "fuente_anterior": "",
-                    "plan": "Garantizar los derechos sexuales y reproductivos integrales de las niñas y mujeres del país según convenios internacionales."
+                    "plan": "Sin mención"
                 }
             },
             {
-                "name": "Matrimonio Civil / Unión Civil LGBTIQ+",
+                "name": "Matrimonio homosexual / unión civil",
                 "keiko": {
                     "reciente": "\"Yo estoy a favor de la unión civil cuando se trata de defender el patrimonio\".",
                     "fecha_reciente": "20 de enero de 2026",
@@ -344,11 +323,19 @@ function armarTarjeta(perfilData, configCand, nombreSubtema) {
         htmlCita = `<p class="quote-text" style="color:#777; font-style:normal;">Sin declaraciones verbales recientes registradas en prensa.</p>`;
     }
 
+    let esCambioPostura = false;
+    // REGLA ESTRICTA: SOLO Keiko (Pena de muerte/CIDH) y Sánchez (BCR/Velarde) activan el flip-flop.
+    if (
+        (configCand.nombre === "Roberto Sánchez" && (nombreSubtema.toLowerCase().includes("bcr") || nombreSubtema.toLowerCase().includes("velarde"))) ||
+        (configCand.nombre === "Keiko Fujimori" && (nombreSubtema.toLowerCase().includes("cidh") || nombreSubtema.toLowerCase().includes("muerte")))
+    ) {
+        esCambioPostura = true;
+    }
+
     let htmlFlipFlop = "";
-    // Evaluamos si existe una declaración contradictoria basándonos directamente en la data del Excel
-    if (perfilData.anterior && perfilData.anterior.trim() !== "") {
+    if (perfilData.anterior && perfilData.anterior.trim() !== "" && esCambioPostura) {
         let alertaCambioHtml = `<div class="alerta-cambio">🚨 ALERTA de Cambio de Postura</div>`;
-        let autoAbrir = false;
+        let autoAbrir = true;
         
         htmlFlipFlop = `
         ${alertaCambioHtml}
