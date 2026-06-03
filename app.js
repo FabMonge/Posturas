@@ -33,31 +33,31 @@ const BASE_DATOS_ELECTORAL = [
         "title": "Economía",
         "subtopics": [
             {
-                "name": "Petroperú",
+                "name": "Petro-Perú",
                 "keiko": {
-                    "reciente": "\"Petroperú se convertirá en una asociación público privada (APP). El Estado, por supuesto, seguirá participando; pero haremos que el sector privado integre, participe, porque esto dará mayor transparencia y será mucho más eficiente\".",
+                    "reciente": "\"Petro-Perú se convertirá en una asociación público privada (APP). El Estado, por supuesto, seguirá participando; pero haremos que el sector privado integre, participe, porque esto dará mayor transparencia y será mucho más eficiente\".",
                     "fecha_reciente": "19 de marzo de 2026",
                     "fuente_reciente": "https://canaln.pe/actualidad/keiko-fujimori-propone-asociacion-publico-privada-petroperu-y-cuestiona-aporte-estatal-n491005",
-                    "anterior": "\"En lo que relaciona a Petroperú. Es importante hacer una reforma profunda en donde se pida transparencia. Creemos que una fórmula de alianza público-privada, el sector público continuará dirigiendo Petroperú; pero la presencia de inversionistas privados y de otros organismos permitirá hacer una reforma y enfocar a esta empresa en los sectores que más convienen a nuestro país, me refiero al refinamiento y la distribución, mas no a la exploración y otros aspectos que han llevado a un gasto excesivo\".",
+                    "anterior": "\"En lo que relaciona a Petro-Perú. Es importante hacer una reforma profunda en donde se pida transparencia. Creemos que una fórmula de alianza público-privada, el sector público continuará dirigiendo Petro-Perú; pero la presencia de inversionistas privados y de otros organismos permitirá hacer una reforma y enfocar a esta empresa en los sectores que más convienen a nuestro país, me refiero al refinamiento y la distribución, mas no a la exploración y otros aspectos que han llevado a un gasto excesivo\".",
                     "fecha_anterior": "30 de enero de 2026",
                     "fuente_anterior": "https://www.facebook.com/canalnoficial/videos/keiko-fujimori-candidata-presidencial-de-fuerza-popular-dijo-que-es-importante-u/1448221170356046/",
-                    "plan": "\"Optimización de la operación de Petroperú: la empresa estatal se concentrará exclusivamente en las actividades de refinamiento y distribución, garantizando sostenibilidad financiera, eficiencia operativa y transparencia en la Refinería de Talara. La gestión de la venta de activos no estratégicos de Petroperú para reducir pasivos, mejorar su flujo de caja y redireccionar recursos en las operaciones de mayor rentabilidad y valor público\"."
+                    "plan": "\"Optimización de la operación de Petro-Perú: la empresa estatal se concentrará exclusivamente en las actividades de refinamiento y distribución, garantizando sostenibilidad financiera, eficiencia operativa y transparencia en la Refinería de Talara. La gestión de la venta de activos no estratégicos de Petro-Perú para reducir pasivos, mejorar su flujo de caja y redireccionar recursos en las operaciones de mayor rentabilidad y valor público\"."
                 },
                 "roberto": {
-                    "reciente": "\"¡No a la privatización de Petroperú!. Una política económica nacional responsable no puede 'rematar' uno de los activos más importantes para el desarrollo estratégico del Perú. El mercantilismo neoliberal aliado de la derecha empresarial es incapaz de pensar en los 34 millones de peruanos y en su bienestar estratégico. ¡Petroperú no se vende! ¡Petroperú se defiende!\".",
+                    "reciente": "\"¡No a la privatización de Petro-Perú!. Una política económica nacional responsable no puede 'rematar' uno de los activos más importantes para el desarrollo estratégico del Perú. El mercantilismo neoliberal aliado de la derecha empresarial es incapaz de pensar en los 34 millones de peruanos y en su bienestar estratégico. ¡Petro-Perú no se vende! ¡Petro-Perú se defiende!\".",
                     "fecha_reciente": "01 de enero de 2026",
                     "fuente_reciente": "https://x.com/RobertoSanchP/status/2006926040216522914",
-                    "anterior": "\"¡Petroperú no se vende!. Como peruano y patriota comprometido con el país, lo digo con total claridad: un gobierno sin legitimidad no tiene derecho a decidir el futuro de nuestro patrimonio energético\".",
+                    "anterior": "\"¡Petro-Perú no se vende!. Como peruano y patriota comprometido con el país, lo digo con total claridad: un gobierno sin legitimidad no tiene derecho a decidir el futuro de nuestro patrimonio energético\".",
                     "fecha_anterior": "03 de enero de 2026",
                     "fuente_anterior": "https://www.facebook.com/RobertoSanchez.Oficial/photos/petroper%C3%BA-no-se-vendecomo-peruano-y-patriota-comprometido-con-el-pa%C3%ADs-lo-digo-co/1543207091140103/",
                     "plan": "\"Estarán prohibidas las concesiones que otorguen ventajas especiales a inversionistas extranjeros, que pongan en riesgo la soberanía territorial y nuestra matriz energética, que coloquen en desventaja al empresariado nacional o que vayan contra el interés público\".",
-                    "plan_2da": "\"Garantizaremos la seguridad energética del país, no privatizaremos Petroperú y lo fortaleceremos y reformaremos con una nueva Ley de Desarrollo Corporativo para asegurar la estabilidad de su dirección, con meritocracia y un enfoque de integración Vertical\"."
+                    "plan_2da": "\"Garantizaremos la seguridad energética del país, no privatizaremos Petro-Perú y lo fortaleceremos y reformaremos con una nueva Ley de Desarrollo Corporativo para asegurar la estabilidad de su dirección, con meritocracia y un enfoque de integración Vertical\"."
                 }
             },
             {
-                "name": "Nueva Constitución / cambio de modelo económico",
+                "name": "Nueva Constitución / Cambio de modelo económico",
                 "keiko": {
-                    "reciente": "\"La constitución de 1993 le dio autonomía a varias instituciones políticas de nuestro país, entre ellas al BCR, lo que ha permitido que nuestra moneda se convierta en una de las más sólidas y líderes en América Latina. Logró el mayor crecimiento económico de nuestra historia. Logró reducir la pobreza, pasamos del 55% en 1990 a aproximadamente 20% en el 2018\".",
+                    "reciente": "\"La Constitución de 1993 le dio autonomía a varias instituciones políticas de nuestro país, entre ellas al BCR, lo que ha permitido que nuestra moneda se convierta en una de las más sólidas y líderes en América Latina. Logró el mayor crecimiento económico de nuestra historia. Logró reducir la pobreza, pasamos del 55% en 1990 a aproximadamente 20% en el 2018\".",
                     "fecha_reciente": "30 de enero de 2024",
                     "fuente_reciente": "https://www.tiktok.com/@keikofujimorih/video/7329919466064661765",
                     "anterior": "\"Fuerza Popular va a seguir defendiendo la constitución de 1993\".",
@@ -91,7 +91,7 @@ const BASE_DATOS_ELECTORAL = [
                     "reciente": "\"Estamos en la capacidad de visitarlo, conversar con él [Velarde], tomar un buen café de Quillabamba o de Jaén, dialogar nuestros puntos en desencuentro en el marco de lo que ha dicho JPP. Reafirmamos y hemos dicho que la autonomía del BCR la defendemos\".",
                     "fecha_reciente": "18 de abril de 2026",
                     "fuente_reciente": "https://web.facebook.com/reel/3003210329875901",
-                    "anterior": "\"Señor Julio Velarde, usted ya fue desfasado. Nuestro gobierno no lo sostendrá ni un día en el gobierno del pueblo (...) No nos representa, en nuestro primer día de gobierno lo vamos a echar porque es usted una vergüenza. Solamente ha gobernado para mantener contentos y felices a las empresas transnacionales, a sus amos\".",
+                    "anterior": "\"Señor Julio Velarde, usted ya fue desfasado. Nuestro gobierno no lo sostendrá ni un día en el gobierno del pueblo. (...) No nos representa, en nuestro primer día de gobierno lo vamos a echar, porque es usted una vergüenza. Solamente ha gobernado para mantener contentos y felices a las empresas transnacionales, a sus amos\".",
                     "fecha_anterior": "29 de marzo de 2026",
                     "fuente_anterior": "https://www.youtube.com/watch?v=sAe0CDro8bs",
                     "plan": "No se menciona.",
@@ -99,7 +99,7 @@ const BASE_DATOS_ELECTORAL = [
                 }
             },
             {
-                "name": "Reforma tributaria / impuestos",
+                "name": "Reforma tributaria / Impuestos",
                 "keiko": {
                     "reciente": "",
                     "fecha_reciente": "",
@@ -132,7 +132,7 @@ const BASE_DATOS_ELECTORAL = [
                     "plan": "\"Establecimiento de plazos máximos y vinculantes para autorizaciones sectoriales, evitando que inversiones estratégicas queden paralizadas indefinidamente\"."
                 },
                 "roberto": {
-                    "reciente": "\"¿Dónde está la raíz de todos los problemas?. En el tejido institucional, un sistema de justicia que no persigue el delito, un régimen económico con contratos ley irrevisables. Un Estado arrodillado frente al imperio económico\".",
+                    "reciente": "\"¿Dónde está la raíz de todos los problemas? En el tejido institucional, un sistema de justicia que no persigue el delito, un régimen económico con contratos ley irrevisables. Un Estado arrodillado frente al imperio económico\".",
                     "fecha_reciente": "24 de marzo de 2026",
                     "fuente_reciente": "https://www.facebook.com/reel/1284430713546342",
                     "anterior": "\"Necesitamos que se acaben los contratos ley que han sido nefastos\".",
@@ -149,7 +149,7 @@ const BASE_DATOS_ELECTORAL = [
         "title": "Seguridad y Economías Ilegales",
         "subtopics": [
             {
-                "name": "Salida de la CIDH / pena de muerte",
+                "name": "Salida de la Corte IDH / Pena de muerte",
                 "keiko": {
                     "reciente": "\"Yo creo que para derrotar al terrorismo no se necesitó la pena de muerte, y creo que ahora tampoco. Lo que sí creo es que vamos a tener que salir del Pacto de San José por dos razones: Una, porque creo que hay que implementar temporalmente los jueces sin rostro. Porque hoy el temor y el miedo no solamente están en la calle, en los transportistas, en los bodegueros. Sino también en el sistema de justicia. Yo creo que parte de esta sensación de impunidad es también por el miedo que tienen los jueces, y por eso tenemos que volver a poner temporalmente el sistema jueces sin rostro, para eso tenemos que salir del pacto. Y lo segundo que tenemos que implementar es que los internos tienen que trabajar por sus alimentos de calidad\".",
                     "fecha_reciente": "09 de abril de 2026",
@@ -160,7 +160,7 @@ const BASE_DATOS_ELECTORAL = [
                     "plan": "\"Implementación de un régimen de trabajo penitenciario, que vincule la participación en actividades productivas al otorgamiento de incentivos, tal como el acceso a condiciones de la alimentación\"."
                 },
                 "roberto": {
-                    "reciente": "\"No estamos de acuerdo con denunciar al Pacto de San José, de ninguna manera (...) Queremos paz social con justicia, mano firme con el debido proceso, los derechos humanos no son un aspecto secundario\".",
+                    "reciente": "\"No estamos de acuerdo con denunciar al Pacto de San José, de ninguna manera. (...) Queremos paz social con justicia, mano firme con el debido proceso, los derechos humanos no son un aspecto secundario\".",
                     "fecha_reciente": "30 de abril de 2026",
                     "fuente_reciente": "https://www.swissinfo.ch/spa/roberto-s%C3%A1nchez-afirma-que-mantendr%C3%A1-a-per%C3%BA-en-la-corte-idh-y-no-aplicar%C3%A1-pena-de-muerte/91345326",
                     "anterior": "\"Yo soy un provida, no puedo estar de acuerdo con la pena de muerte\".",
@@ -179,7 +179,7 @@ const BASE_DATOS_ELECTORAL = [
                     "anterior": "",
                     "fecha_anterior": "",
                     "fuente_anterior": "",
-                    "plan": "\"Refuerzo del patrullaje en zonas críticas mediante la reorientación del 24x24, priorizando presencia policial efectiva en provincias y fronteras, mediante análisis geoespacial del delito\"."
+                    "plan": "No se menciona."
                 },
                 "roberto": {
                     "reciente": "\"Si perseguimos el delito de nacionales, basta un connacional, basta un internacional, hay que echarlos del país. Tenemos que tener mano firme",
@@ -200,7 +200,7 @@ const BASE_DATOS_ELECTORAL = [
             {
                 "name": "Aborto",
                 "keiko": {
-                    "reciente": "\"En Fuerza Popular y quien habla está a favor del aborto terapéutico en caso de que la madre corra riesgo, más no en caso de violación\".",
+                    "reciente": "\"En Fuerza Popular y quien habla está a favor del aborto terapéutico en caso de que la madre corra riesgo, mas no en caso de violación\".",
                     "fecha_reciente": "12 de febrero de 2026",
                     "fuente_reciente": "https://www.youtube.com/watch?v=AFyXyRG1xmg",
                     "anterior": "\"Yo estoy a favor del aborto terapéutico, pero en contra de los otros casos [como violación]\".",
@@ -209,7 +209,7 @@ const BASE_DATOS_ELECTORAL = [
                     "plan": "No se menciona."
                 },
                 "roberto": {
-                    "reciente": "\"No es una decisión feliz pero ha de primar el derecho a integridad de la víctima que es una niña. Condenable negarle ese imperativo ético. El Aborto terapéutico\".",
+                    "reciente": "\"No es una decisión feliz, pero ha de primar el derecho a integridad de la víctima que es una niña. Condenable negarle ese imperativo ético. El aborto terapéutico\".",
                     "fecha_reciente": "09 de agosto de 2023",
                     "fuente_reciente": "https://x.com/RobertoSanchP/status/1689344169200787456",
                     "anterior": "",
@@ -220,7 +220,7 @@ const BASE_DATOS_ELECTORAL = [
                 }
             },
             {
-                "name": "Matrimonio homosexual / unión civil",
+                "name": "Matrimonio homosexual / Unión civil",
                 "keiko": {
                     "reciente": "\"Yo estoy a favor de la unión civil cuando se trata de defender el patrimonio\".",
                     "fecha_reciente": "20 de enero de 2026",
