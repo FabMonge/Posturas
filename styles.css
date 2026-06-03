@@ -419,3 +419,55 @@ body, html {
     .subtema-bloque { margin-bottom: 25px; }
     .subtema-title { font-size: 20px; }
 }
+
+/* ==========================================================================
+   COMPONENTES DEL SWITCHER DEL PLAN DE GOBIERNO (2DA VUELTA ECDATA)
+   ========================================================================== */
+.btn-plan-switcher {
+    background: transparent;
+    border: none;
+    padding: 0;
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+    font-size: 11px;
+    font-weight: bold;
+    color: #009639; /* Color identificativo de Juntos por el Perú */
+    text-decoration: underline;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    transition: color 0.2s ease;
+}
+
+.btn-plan-switcher:hover {
+    color: #111111;
+}
+
+.btn-plan-switcher.active-2da {
+    color: #d32f2f; /* Tono rojo de alerta de edición cuando muestra el nuevo plan */
+}
+
+.plan-text-container {
+    font-family: 'Arial', sans-serif;
+    font-size: 12.5px;
+    line-height: 1.5;
+    color: #333333;
+    animation: fadeInPlan 0.2s ease-in-out;
+}
+
+@keyframes fadeInPlan {
+    from { opacity: 0; transform: translateY(2px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* =========================================
+   2. IMAGEN SUPERIOR (FULL WIDTH)
+   ========================================= */
+.top-hero-image {
+    width: 100%; 
+    height: auto;
+    max-height: 70vh; 
+    object-fit: cover; 
+    display: block;
+    scroll-margin-top: 80px;
+}
