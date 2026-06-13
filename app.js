@@ -1,601 +1,455 @@
-gsap.registerPlugin(ScrollTrigger);
-const esMovil = window.innerWidth <= 768;
-
-// ===============================================
-// 1. DICCIONARIO DE TRADUCCIÓN Y BANDERAS (CDN)
-// ===============================================
-const PAISES_TRADUCCION = {
-    'MEX': { es: 'México', flag: 'mx' }, 'ITA': { es: 'Italia', flag: 'it' }, 'FRA': { es: 'Francia', flag: 'fr' },
-    'BRA': { es: 'Brasil', flag: 'br' }, 'DEU': { es: 'Alemania', flag: 'de' }, 'ARG': { es: 'Argentina', flag: 'ar' },
-    'USA': { es: 'Estados Unidos', flag: 'us' }, 'URY': { es: 'Uruguay', flag: 'uy' }, 'CHE': { es: 'Suiza', flag: 'ch' },
-    'SWE': { es: 'Suecia', flag: 'se' }, 'CHL': { es: 'Chile', flag: 'cl' }, 'GBR': { es: 'Reino Unido', flag: 'gb' },
-    'ESP': { es: 'España', flag: 'es' }, 'JPN': { es: 'Japón', flag: 'jp' }, 'KOR': { es: 'Corea del Sur', flag: 'kr' },
-    'ZAF': { es: 'Sudáfrica', flag: 'za' }, 'RUS': { es: 'Rusia', flag: 'ru' }, 'QAT': { es: 'Catar', flag: 'qa' },
-    'CAN': { es: 'Canadá', flag: 'ca' }, 'DZA': { es: 'Argelia', flag: 'dz' }, 'AUS': { es: 'Australia', flag: 'au' },
-    'AUT': { es: 'Austria', flag: 'at' }, 'BEL': { es: 'Bélgica', flag: 'be' }, 'BIH': { es: 'Bosnia y Herz.', flag: 'ba' },
-    'CPV': { es: 'Cabo Verde', flag: 'cv' }, 'COL': { es: 'Colombia', flag: 'co' }, 'HRV': { es: 'Croacia', flag: 'hr' },
-    'CUW': { es: 'Curazao', flag: 'cw' }, 'CZE': { es: 'República Checa', flag: 'cz' }, 'COD': { es: 'RD Congo', flag: 'cd' },
-    'ECU': { es: 'Ecuador', flag: 'ec' }, 'EGY': { es: 'Egipto', flag: 'eg' }, 'GHA': { es: 'Ghana', flag: 'gh' },
-    'HTI': { es: 'Haití', flag: 'ht' }, 'IRN': { es: 'Irán', flag: 'ir' }, 'IRQ': { es: 'Irak', flag: 'iq' },
-    'CIV': { es: 'Costa de Marfil', flag: 'ci' }, 'JOR': { es: 'Jordania', flag: 'jo' }, 'MAR': { es: 'Marruecos', flag: 'ma' },
-    'NLD': { es: 'Países Bajos', flag: 'nl' }, 'NZL': { es: 'Nueva Zelanda', flag: 'nz' }, 'NOR': { es: 'Noruega', flag: 'no' },
-    'PAN': { es: 'Panamá', flag: 'pa' }, 'PRY': { es: 'Paraguay', flag: 'py' }, 'PRT': { es: 'Portugal', flag: 'pt' },
-    'SAU': { es: 'Arabia Saudita', flag: 'sa' }, 'SEN': { es: 'Senegal', flag: 'sn' }, 'TUN': { es: 'Túnez', flag: 'tn' },
-    'TUR': { es: 'Turquía', flag: 'tr' }, 'UZB': { es: 'Uzbekistán', flag: 'uz' }, 'HUN': { es: 'Hungría', flag: 'hu' },
-    'POL': { es: 'Polonia', flag: 'pl' }, 'BGR': { es: 'Bulgaria', flag: 'bg' }, 'BOL': { es: 'Bolivia', flag: 'bo' },
-    'PER': { es: 'Perú', flag: 'pe' }, 'ROU': { es: 'Rumania', flag: 'ro' }, 'DNK': { es: 'Dinamarca', flag: 'dk' },
-    'IRL': { es: 'Irlanda', flag: 'ie' }, 'GRC': { es: 'Grecia', flag: 'gr' }, 'IDN': { es: 'Indonesia', flag: 'id' },
-    'SLV': { es: 'El Salvador', flag: 'sv' }, 'UKR': { es: 'Ucrania', flag: 'ua' }, 'PRK': { es: 'C. del Norte', flag: 'kp' },
-    'ISR': { es: 'Israel', flag: 'il' }, 'HND': { es: 'Honduras', flag: 'hn' }, 'CRI': { es: 'Costa Rica', flag: 'cr' },
-    'NGA': { es: 'Nigeria', flag: 'ng' }, 'CMR': { es: 'Camerún', flag: 'cm' }, 'TTO': { es: 'Trin. y Tobago', flag: 'tt' },
-    'KWT': { es: 'Kuwait', flag: 'kw' }, 'JAM': { es: 'Jamaica', flag: 'jm' }, 'ARE': { es: 'EAU', flag: 'ae' },
-    'AGO': { es: 'Angola', flag: 'ao' }, 'TGO': { es: 'Togo', flag: 'tg' }, 'CHN': { es: 'China', flag: 'cn' },
-    'SVN': { es: 'Eslovenia', flag: 'si' }, 'ISL': { es: 'Islandia', flag: 'is' }, 'SVK': { es: 'Eslovaquia', flag: 'sk' }
-};
-
-// ===============================================
-// 2. BASE DE DATOS Y CONFIGURACIÓN NARRATIVA
-// ===============================================
-const DATA = {
-    anfitriones: ['MEX', 'ITA', 'FRA', 'BRA', 'DEU', 'ARG', 'USA', 'URY', 'CHE', 'SWE', 'CHL', 'GBR', 'ESP', 'JPN', 'KOR', 'ZAF', 'RUS', 'QAT', 'CAN'],
-    continentes: {
-        'MEX': 'America', 'BRA': 'America', 'ARG': 'America', 'USA': 'America', 'URY': 'America', 'CHL': 'America', 'CAN': 'America',
-        'ITA': 'Europa', 'FRA': 'Europa', 'DEU': 'Europa', 'CHE': 'Europa', 'SWE': 'Europa', 'GBR': 'Europa', 'ESP': 'Europa', 'RUS': 'Europa',
-        'JPN': 'Asia', 'KOR': 'Asia', 'QAT': 'Asia', 'ZAF': 'Africa'
-    },
-// NUEVO: Se usan códigos ISO2 para llamar a la imagen de FlagCDN
-    banderas: [
-        { iso: 'USA', lat: 39.0, lng: -98.0, iso2: 'us', grupo: '2026' },
-        { iso: 'MEX', lat: 23.6, lng: -102.5, iso2: 'mx', grupo: '2026' },
-        { iso: 'CAN', lat: 56.1, lng: -106.3, iso2: 'ca', grupo: '2026' },
-        { iso: 'JPN', lat: 36.0, lng: 150.2, iso2: 'jp', grupo: '2002' },
-        { iso: 'KOR', lat: 45.5, lng: 124.7, iso2: 'kr', grupo: '2002' }
-    ],
-    participantes_2026: [
-        'DZA','ARG','AUS','AUT','BEL','BIH','BRA','CAN','CPV','COL','HRV','CUW','CZE','COD',
-        'ECU','EGY','GBR','FRA','DEU','GHA','HTI','IRN','IRQ','CIV','JPN','JOR','MEX','MAR',
-        'NLD','NZL','NOR','PAN','PRY','PRT','QAT','SAU','SEN','ZAF','KOR','ESP','SWE','CHE',
-        'TUN','TUR','USA','URY','UZB'
-    ],
-    historicos_fuera: [
-        'ITA','CHL','HUN','POL','BGR','BOL','PER','ROU','DNK','IRL','GRC','IDN','SLV','UKR',
-        'PRK','ISR','HND','CRI','NGA','CMR','TTO','KWT','JAM','ARE','AGO','TGO','CHN','SVN',
-        'ISL','SVK'
-    ],
-
-    // NUEVOS ARRAYS AÑADIDOS AL FINAL DE "DATA"
-    campeones_locales: ['URY', 'ITA', 'GBR', 'DEU', 'ARG', 'FRA'],
-    no_campeones_locales: ['MEX', 'BRA', 'CHE', 'SWE', 'CHL', 'ESP', 'USA', 'JPN', 'KOR', 'ZAF', 'RUS', 'QAT', 'CAN'],
-    ciudades_nuevas: [
-        { nombre: 'Atlanta', lat: 33.749, lng: -84.388 }, 
-        { nombre: 'Boston', lat: 42.3601, lng: -71.0589 },
-        { nombre: 'Dallas', lat: 32.7767, lng: -96.797 }, 
-        { nombre: 'Houston', lat: 29.7604, lng: -95.3698 },
-        { nombre: 'Kansas City', lat: 39.0997, lng: -94.5786 }, 
-        { nombre: 'Los Ángeles', lat: 34.0522, lng: -118.2437 },
-        { nombre: 'Miami', lat: 25.7617, lng: -80.1918 }, 
-        { nombre: 'Nueva Jersey', lat: 40.0583, lng: -74.4057 },
-        { nombre: 'Filadelfia', lat: 39.9526, lng: -75.1652 }, 
-        { nombre: 'San Francisco', lat: 37.7749, lng: -122.4194 },
-        { nombre: 'Seattle', lat: 47.6062, lng: -122.3321 }, 
-        { nombre: 'Guadalajara', lat: 20.6597, lng: -103.3496 },
-        { nombre: 'Monterrey', lat: 25.6866, lng: -100.3161 }, 
-        { nombre: 'Toronto', lat: 43.6532, lng: -79.3832 },
-        { nombre: 'Vancouver', lat: 49.2827, lng: -123.1207 }
-    ],
-    ciudades_historicas: [
-        { nombre: 'Montevideo', lat: -34.9011, lng: -56.1645 }, { nombre: 'Milán', lat: 45.4654, lng: 9.1859 },
-        { nombre: 'Boloña', lat: 44.4949, lng: 11.3426 }, { nombre: 'Roma', lat: 41.9028, lng: 12.4964 },
-        { nombre: 'Florencia', lat: 43.7696, lng: 11.2558 }, { nombre: 'Nápoles', lat: 40.8518, lng: 14.2681 },
-        { nombre: 'Génova', lat: 44.4056, lng: 8.9463 }, { nombre: 'Turín', lat: 45.0703, lng: 7.6869 },
-        { nombre: 'Trieste', lat: 45.6495, lng: 13.7768 }, { nombre: 'Toulouse', lat: 43.6047, lng: 1.4442 },
-        { nombre: 'Estrasburgo', lat: 48.5734, lng: 7.7521 }, { nombre: 'El Havre', lat: 49.4938, lng: 0.1077 },
-        { nombre: 'Antibes', lat: 43.5808, lng: 7.1239 }, { nombre: 'Burdeos', lat: 44.8378, lng: -0.5792 },
-        { nombre: 'París', lat: 48.8566, lng: 2.3522 }, { nombre: 'Marsella', lat: 43.2965, lng: 5.3698 },
-        { nombre: 'Reims', lat: 49.2583, lng: 4.0317 }, { nombre: 'Lille', lat: 50.6292, lng: 3.0573 },
-        { nombre: 'Curitiba', lat: -25.4284, lng: -49.2733 }, { nombre: 'Porto Alegre', lat: -30.0346, lng: -51.2177 },
-        { nombre: 'Recife', lat: -8.0476, lng: -34.877 }, { nombre: 'Belo Horizonte', lat: -19.9167, lng: -43.9345 },
-        { nombre: 'Río de Janeiro', lat: -22.9068, lng: -43.1729 }, { nombre: 'Sao Paulo', lat: -23.5505, lng: -46.6333 },
-        { nombre: 'Lausana', lat: 46.5197, lng: 6.6323 }, { nombre: 'Ginebra', lat: 46.2044, lng: 6.1432 },
-        { nombre: 'Zurich', lat: 47.3769, lng: 8.5417 }, { nombre: 'Berna', lat: 46.948, lng: 7.4474 },
-        { nombre: 'Basilea', lat: 47.5596, lng: 7.5886 }, { nombre: 'Lugano', lat: 46.0037, lng: 8.9511 },
-        { nombre: 'Halmstad', lat: 56.6745, lng: 12.8578 }, { nombre: 'Malmo', lat: 55.605, lng: 13.0038 },
-        { nombre: 'Helsinborg', lat: 56.0465, lng: 12.6945 }, { nombre: 'Vasteras', lat: 59.611, lng: 16.5448 },
-        { nombre: 'Norrkoping', lat: 58.5877, lng: 16.1924 }, { nombre: 'Orebro', lat: 59.2741, lng: 15.2066 },
-        { nombre: 'Eskilstuna', lat: 59.3666, lng: 16.5077 }, { nombre: 'Solna', lat: 59.3618, lng: 18.0000 },
-        { nombre: 'Sandviken', lat: 60.6167, lng: 16.7833 }, { nombre: 'Uddevalla', lat: 58.3491, lng: 11.9382 },
-        { nombre: 'Gotemgurgo', lat: 57.7089, lng: 11.9746 }, { nombre: 'Boras', lat: 57.721, lng: 12.9401 },
-        { nombre: 'Arica', lat: -18.4783, lng: -70.3126 }, { nombre: 'Santiago', lat: -33.4489, lng: -70.6693 },
-        { nombre: 'Viña del Mar', lat: -33.0245, lng: -71.5518 }, { nombre: 'Rancagua', lat: -34.1708, lng: -70.7394 },
-        { nombre: 'Londres', lat: 51.5074, lng: -0.1278 }, { nombre: 'Sheffield', lat: 53.3811, lng: -1.4701 },
-        { nombre: 'Birmingham', lat: 52.4862, lng: -1.8904 }, { nombre: 'Liverpool', lat: 53.4084, lng: -2.9916 },
-        { nombre: 'Manchester', lat: 53.4808, lng: -2.2426 }, { nombre: 'Middlesbrough', lat: 54.5742, lng: -1.2348 },
-        { nombre: 'Sunderland', lat: 54.9069, lng: -1.3838 }, { nombre: 'Puebla', lat: 19.0414, lng: -98.2063 },
-        { nombre: 'Toluca', lat: 19.2826, lng: -99.6557 }, { nombre: 'León', lat: 21.1221, lng: -101.6823 },
-        { nombre: 'Berlín', lat: 52.52, lng: 13.405 }, { nombre: 'Hamburgo', lat: 53.5753, lng: 10.0153 },
-        { nombre: 'Fráncfort del Meno', lat: 50.1109, lng: 8.6821 }, { nombre: 'Dortmund', lat: 51.5136, lng: 7.4653 },
-        { nombre: 'Gelsenkirchen', lat: 51.5177, lng: 7.0857 }, { nombre: 'Hannover', lat: 52.3759, lng: 9.732 },
-        { nombre: 'Dusseldorf', lat: 51.2217, lng: 6.7762 }, { nombre: 'Múnich', lat: 48.135, lng: 11.582 },
-        { nombre: 'Mar del Plata', lat: -38.0055, lng: -57.5426 }, { nombre: 'Buenos Aires', lat: -34.6037, lng: -58.3816 },
-        { nombre: 'Rosario', lat: -32.9468, lng: -60.6393 }, { nombre: 'Córdoba', lat: -31.4201, lng: -64.1888 },
-        { nombre: 'Mendoza', lat: -32.8908, lng: -68.8272 }, { nombre: 'Vigo', lat: 42.2328, lng: -8.7226 },
-        { nombre: 'La Coruña', lat: 43.3623, lng: -8.4115 }, { nombre: 'Gijón', lat: 43.5322, lng: -5.6611 },
-        { nombre: 'Oviedo', lat: 43.3614, lng: -5.8593 }, { nombre: 'Barcelona', lat: 41.385, lng: 2.1734 },
-        { nombre: 'Elche', lat: 38.2669, lng: -0.6983 }, { nombre: 'Alicante', lat: 38.3452, lng: -0.481 },
-        { nombre: 'Bilbao', lat: 43.263, lng: -2.935 }, { nombre: 'Valladolid', lat: 41.6523, lng: -4.7245 },
-        { nombre: 'Valencia', lat: 39.4699, lng: -0.3763 }, { nombre: 'Zaragoza', lat: 41.6561, lng: -0.8773 },
-        { nombre: 'Sevilla', lat: 37.3891, lng: -5.9845 }, { nombre: 'Málaga', lat: 36.7213, lng: -4.4214 },
-        { nombre: 'Madrid', lat: 40.4168, lng: -3.7038 }, { nombre: 'Irapuato', lat: 20.6736, lng: -101.3549 },
-        { nombre: 'Querétaro', lat: 20.5888, lng: -100.3899 }, { nombre: 'Nezahualcoyotl', lat: 19.4015, lng: -89.0153 },
-        { nombre: 'Bari', lat: 41.1177, lng: 16.8512 }, { nombre: 'Verona', lat: 45.4384, lng: 10.9916 },
-        { nombre: 'Udine', lat: 46.0711, lng: 13.2343 }, { nombre: 'Cagliari', lat: 39.2238, lng: 9.1217 },
-        { nombre: 'Palermo', lat: 38.1157, lng: 13.3615 }, { nombre: 'Detroit', lat: 42.3314, lng: -83.0458 },
-        { nombre: 'Chicago', lat: 41.8781, lng: -87.6298 }, { nombre: 'Washington DC', lat: 38.9072, lng: -77.0369 },
-        { nombre: 'Orlando', lat: 28.5383, lng: -81.3792 }, { nombre: 'Saint Denis', lat: 48.9356, lng: 2.3539 },
-        { nombre: 'Montpellier', lat: 43.6108, lng: 3.8767 }, { nombre: 'Nantes', lat: 47.2184, lng: -1.5536 },
-        { nombre: 'Saint Étienne', lat: 45.4397, lng: 4.3872 }, { nombre: 'Lens', lat: 50.4322, lng: 2.8317 },
-        { nombre: 'Lyon', lat: 45.764, lng: 4.8357 }, { nombre: 'Seúl', lat: 37.5665, lng: 126.978 },
-        { nombre: 'Ulsan', lat: 35.5384, lng: 129.3114 }, { nombre: 'Busan', lat: 35.1796, lng: 129.0756 },
-        { nombre: 'Daegu', lat: 35.8714, lng: 128.6014 }, { nombre: 'Suwon', lat: 37.2636, lng: 127.0286 },
-        { nombre: 'Incheon', lat: 37.4563, lng: 126.7052 }, { nombre: 'Gwangju', lat: 35.1595, lng: 126.8526 },
-        { nombre: 'Jeonju', lat: 35.8242, lng: 127.148 }, { nombre: 'Daejeon', lat: 36.3504, lng: 127.3845 },
-        { nombre: 'Seogwipo', lat: 33.2541, lng: 126.56 }, { nombre: 'Niigata', lat: 37.9161, lng: 139.0364 },
-        { nombre: 'Sapporo', lat: 43.0618, lng: 141.3545 }, { nombre: 'Ibaraki', lat: 34.8154, lng: 135.5686 },
-        { nombre: 'Saitama', lat: 35.8617, lng: 139.6455 }, { nombre: 'Shizuoka', lat: 34.9769, lng: 138.3831 },
-        { nombre: 'Yokohama', lat: 35.4437, lng: 139.638 }, { nombre: 'Kobe', lat: 34.6901, lng: 135.1956 },
-        { nombre: 'Miyagi', lat: 38.2688, lng: 140.8721 }, { nombre: 'Osaka', lat: 34.6937, lng: 135.5023 },
-        { nombre: 'Oita', lat: 33.2382, lng: 131.6126 }, { nombre: 'Nuremberg', lat: 49.4521, lng: 11.0767 },
-        { nombre: 'Colonia', lat: 50.9333, lng: 6.95 }, { nombre: 'Kaiserslautern', lat: 49.444, lng: 7.7689 },
-        { nombre: 'Leipzig', lat: 51.3397, lng: 12.3731 }, { nombre: 'Johanesburgo', lat: -26.2041, lng: 28.0473 },
-        { nombre: 'Cape Town', lat: -33.9249, lng: 18.4241 }, { nombre: 'Pretoria', lat: -25.7479, lng: 28.2293 },
-        { nombre: 'Polokwane', lat: -23.9045, lng: 29.4689 }, { nombre: 'Bloemfontein', lat: -29.0852, lng: 26.1596 },
-        { nombre: 'Phokeng', lat: -25.6167, lng: 27.1167 }, { nombre: 'Puerto Elizabeth', lat: -33.9608, lng: 25.6022 },
-        { nombre: 'Durban', lat: -29.8587, lng: 31.0218 }, { nombre: 'Mbombela', lat: -25.4753, lng: 30.9694 },
-        { nombre: 'Natal', lat: -5.7945, lng: -35.211 }, { nombre: 'Fortaleza', lat: -3.7172, lng: -38.5434 },
-        { nombre: 'Manaos', lat: -3.119, lng: -60.0217 }, { nombre: 'Brasilia', lat: -15.7801, lng: -47.9292 },
-        { nombre: 'Sao Lorenzo da Mata', lat: -8.3667, lng: -35.0333 }, { nombre: 'Salvador', lat: -12.9714, lng: -38.5014 },
-        { nombre: 'Cuiabá', lat: -15.6014, lng: -56.0979 }, { nombre: 'Moscú', lat: 55.7558, lng: 37.6173 },
-        { nombre: 'Ekaterinburgo', lat: 56.8389, lng: 60.6057 }, { nombre: 'San Petersburgo', lat: 59.9343, lng: 30.3351 },
-        { nombre: 'Rostov del Don', lat: 47.2357, lng: 39.7015 }, { nombre: 'Samara', lat: 53.2038, lng: 50.1606 },
-        { nombre: 'Volgogrado', lat: 48.708, lng: 44.5133 }, { nombre: 'Sochi', lat: 43.6028, lng: 39.7342 },
-        { nombre: 'Kazán', lat: 55.8304, lng: 49.0661 }, { nombre: 'Saransk', lat: 54.1878, lng: 45.1831 },
-        { nombre: 'Kaliningrado', lat: 54.7104, lng: 20.4522 }, { nombre: 'Nizhni Nóvgorod', lat: 56.2965, lng: 43.9361 },
-        { nombre: 'Doha', lat: 25.2854, lng: 51.531 }, { nombre: 'Lusail', lat: 25.4278, lng: 51.4919 },
-        { nombre: 'Al Rayyan', lat: 25.2919, lng: 51.4244 }, { nombre: 'Al Khor', lat: 25.69, lng: 51.4965 },
-        { nombre: 'Al Wakrah', lat: 25.166, lng: 51.5985 }, { nombre: 'Nueva York', lat: 40.7128, lng: -74.006 }
-    ]
-};
-
-const CONFIG = {
-    // Si ya descargaste el mapa de alta resolución, déjalo como "custom.geo.json". 
-    // Si no, puedes usar este enlace directo: "https://raw.githubusercontent.com/datasets/geo-countries/master/data/countries.geojson"
-    geojsonUrl: "custom.geo.json",
-    colores: {
-        vacio: "#151515",      
-        base: "#222222",       
-        borde: "#555555",     
-        anfitrion: "#f1c40f", 
-        america: "#2ecc71",   
-        europa: "#3498db",    
-        asia: "#e67e22",      
-        africa: "#9b59b6",    
-        co_2026: "#00ffcc",   
-        co_2002: "#ff0055",   
-        part_2026: "#3498db",
-        part_hist: "#7f8c8d",
-        campeon_local: "#f1c40f",
-        no_campeon: "#e74c3c",
-    },
-    leyendas: {
-        1: [ { texto: "Países que han sido anfitriones de la Copa del Mundo", color: "#f1c40f" } ],
-        2: [
-            // NUEVO: Agregamos "valor" y "max" para generar el gráfico de barras CSS
-            { texto: "Europa", color: "#3498db", valor: 11, max: 11 },
-            { texto: "América", color: "#2ecc71", valor: 9, max: 11 },
-            { texto: "Asia", color: "#e67e22", valor: 2, max: 11 },
-            { texto: "África", color: "#9b59b6", valor: 1, max: 11 }
-        ],
-        3: [
-            { texto: "Copa del Mundo 2026", color: "#00ffcc" },
-            { texto: "Copa del Mundo 2002", color: "#ff0055" }
-        ],
-        4: [
-            { texto: "Clasificados a la Copa del Mundo 2026", color: "#3498db" },
-            { texto: "Países que han jugado al menos una Copa del Mundo", color: "#7f8c8d" }
-        ],
-        6: [ { texto: "Fueron campeones siendo locales (6)", color: "#f1c40f" }, { texto: "Organizaron pero no ganaron (13)", color: "#e74c3c" } ],
-
-        7: [ { texto: "Nuevas ciudades sede 2026", color: "#00ffcc" } ,
-            { texto: "Sedes históricas (1930 - 2022)", color: "#bdc3c7" }
-        ]
-
-
-
-    },
-    camaras: {
-        1: { centro: esMovil ? [20, 0] : [30, 10], zoom: esMovil ? 1.0 : 2.1 },
-        2: { centro: esMovil ? [20, 0] : [30, 10], zoom: esMovil ? 1.0 : 2 },
-        3: { centro: esMovil ? [20, 0] : [35, 20], zoom: esMovil ? 1.2 : 2.2 },
-        4: { centro: esMovil ? [20, 0] : [30, 10], zoom: esMovil ? 1.2 : 2.1 },
-        5: { centro: esMovil ? [45, 15] : [50, 20], zoom: esMovil ? 1.5 : 2.8 },
-        6: { centro: esMovil ? [20, 0] : [30, 10], zoom: esMovil ? 1.0 : 2.1 },
-        7: { centro: esMovil ? [20, 0] : [30, -30], zoom: esMovil ? 1.0 : 2.3 },
-        8: { centro: esMovil ? [20, -100] : [23, -102], zoom: esMovil ? 2.5 : 3.8 }
-        
-    }
-};
-
-// ===============================================
-// 3. INICIALIZACIÓN LEAFLET 
-// ===============================================
-const map = L.map('map', {
-    zoomControl: false, dragging: false, scrollWheelZoom: false, doubleClickZoom: false, touchZoom: false
-}).setView(CONFIG.camaras[1].centro, CONFIG.camaras[1].zoom);
-
-let geoJsonLayer;
-let capaBanderas = L.layerGroup().addTo(map);
-let capaPines = L.layerGroup().addTo(map);
-
-fetch(CONFIG.geojsonUrl)
-    .then(res => res.json())
-    .then(data => {
-        geoJsonLayer = L.geoJSON(data, { 
-            style: () => ({ fillColor: CONFIG.colores.base, weight: 0.9, color: CONFIG.colores.borde, fillOpacity: 0.8 }),
-            onEachFeature: configurarHover
-        }).addTo(map);
-        
-        procesarPasoNarrativo(1); // Enciende el mapa antes de scrollear
-        iniciarMotorGSAP();
-    });
-
-// ===============================================
-// 4. TOOLTIPS CON NOMBRES EN ESPAÑOL Y BANDERAS
-// ===============================================
-function configurarHover(feature, layer) {
-    // BLINDAJE: Busca el código ISO esté en mayúscula o minúscula
-    const prop = feature.properties;
-    const iso = prop.ISO_A3 || prop.iso_a3 || prop.adm0_a3;
-    
-    let nombreFinal = prop.ADMIN || prop.name || prop.admin || "País"; 
-    let imgBandera = '';
-
-    if (iso && PAISES_TRADUCCION[iso]) {
-        nombreFinal = PAISES_TRADUCCION[iso].es;
-        const codIso2 = PAISES_TRADUCCION[iso].flag;
-        imgBandera = `<img src="https://flagcdn.com/w20/${codIso2}.png" alt="${nombreFinal}">`;
-    }
-
-    const tooltipHTML = `<div class="tooltip-content">${imgBandera}<span>${nombreFinal}</span></div>`;
-
-    layer.bindTooltip(tooltipHTML, { sticky: true, className: 'custom-tooltip' });
-    
-    layer.on({
-        mouseover: (e) => { 
-            e.target.setStyle({ weight: 2, color: '#ffffff' });
-            if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
-                layer.bringToFront();
-            }
+// ==========================================================================
+// CONFIGURACIÓN Y ESTADO GLOBAL (Modularidad ECData)
+// ==========================================================================
+const CONFIG_UI = {
+    candidatos: {
+        "Keiko Fujimori": {
+            nombre: "Keiko Fujimori",
+            partido: "Fuerza Popular",
+            colorPrincipal: "#F37021",
+            colorFondo: "#fffbf7",
+            fotoCandidato: "https://fabmonge.github.io/Posturas/fotos/keiko_derecha.png",
+            fotoPartido: "https://fabmonge.github.io/Posturas/fotos/fp.png"
         },
-        mouseout: (e) => { 
-            // Restaura el borde pero respeta el neón si estaba activo
-            const esNeon = e.target.options.className === 'pais-neon';
-            e.target.setStyle({ 
-                weight: esNeon ? 1.5 : 0.9, 
-                color: esNeon ? e.target.options.fillColor : CONFIG.colores.borde 
-            }); 
+        "Roberto Sánchez": {
+            nombre: "Roberto Sánchez",
+            partido: "Juntos por el Perú",
+            colorPrincipal: "#009639",
+            colorFondo: "#f5fcf7",
+            fotoCandidato: "https://fabmonge.github.io/Posturas/fotos/sanchez_izquierda.png",
+            fotoPartido: "https://fabmonge.github.io/Posturas/fotos/JP.png"
         }
-    });
-}
+    }
+};
 
-document.getElementById('btn-comenzar').addEventListener('click', () => {
-    document.getElementById('gsap-pin-container').scrollIntoView({ behavior: 'smooth' });
+let categoriaActual = "economia";
+
+// ==========================================================================
+// DATA MAESTRA HARDCODEADA (ESTÁNDAR EDITORIAL DE BALOTAJE)
+// ==========================================================================
+const BASE_DATOS_ELECTORAL = [
+    {
+        "id": "economia",
+        "title": "Economía",
+        "subtopics": [
+            {
+                "name": "Petro-Perú",
+                "keiko": {
+                    "reciente": "\"Petro-Perú se convertirá en una asociación público privada (APP). El Estado, por supuesto, seguirá participando; pero haremos que el sector privado integre, participe, porque esto dará mayor transparencia y será mucho más eficiente\".",
+                    "fecha_reciente": "19 de marzo de 2026",
+                    "fuente_reciente": "https://canaln.pe/actualidad/keiko-fujimori-propone-asociacion-publico-privada-petroperu-y-cuestiona-aporte-estatal-n491005",
+                    "anterior": "\"En lo que relaciona a Petro-Perú. Es importante hacer una reforma profunda en donde se pida transparencia. Creemos que una fórmula de alianza público-privada, el sector público continuará dirigiendo Petro-Perú; pero la presencia de inversionistas privados y de otros organismos permitirá hacer una reforma y enfocar a esta empresa en los sectores que más convienen a nuestro país, me refiero al refinamiento y la distribución, mas no a la exploración y otros aspectos que han llevado a un gasto excesivo\".",
+                    "fecha_anterior": "30 de enero de 2026",
+                    "fuente_anterior": "https://www.facebook.com/canalnoficial/videos/keiko-fujimori-candidata-presidencial-de-fuerza-popular-dijo-que-es-importante-u/1448221170356046/",
+                    "plan": "\"Optimización de la operación de Petro-Perú: la empresa estatal se concentrará exclusivamente en las actividades de refinamiento y distribución, garantizando sostenibilidad financiera, eficiencia operativa y transparencia en la Refinería de Talara. La gestión de la venta de activos no estratégicos de Petro-Perú para reducir pasivos, mejorar su flujo de caja y redireccionar recursos en las operaciones de mayor rentabilidad y valor público\"."
+                },
+                "roberto": {
+                    "reciente": "\"¡No a la privatización de Petro-Perú!. Una política económica nacional responsable no puede 'rematar' uno de los activos más importantes para el desarrollo estratégico del Perú. El mercantilismo neoliberal aliado de la derecha empresarial es incapaz de pensar en los 34 millones de peruanos y en su bienestar estratégico. ¡Petro-Perú no se vende! ¡Petro-Perú se defiende!\".",
+                    "fecha_reciente": "01 de enero de 2026",
+                    "fuente_reciente": "https://x.com/RobertoSanchP/status/2006926040216522914",
+                    "anterior": "\"¡Petro-Perú no se vende!. Como peruano y patriota comprometido con el país, lo digo con total claridad: un gobierno sin legitimidad no tiene derecho a decidir el futuro de nuestro patrimonio energético\".",
+                    "fecha_anterior": "03 de enero de 2026",
+                    "fuente_anterior": "https://www.facebook.com/RobertoSanchez.Oficial/photos/petroper%C3%BA-no-se-vendecomo-peruano-y-patriota-comprometido-con-el-pa%C3%ADs-lo-digo-co/1543207091140103/",
+                    "plan": "\"Estarán prohibidas las concesiones que otorguen ventajas especiales a inversionistas extranjeros, que pongan en riesgo la soberanía territorial y nuestra matriz energética, que coloquen en desventaja al empresariado nacional o que vayan contra el interés público\".",
+                    "plan_2da": "\"Garantizaremos la seguridad energética del país, no privatizaremos Petro-Perú y lo fortaleceremos y reformaremos con una nueva Ley de Desarrollo Corporativo para asegurar la estabilidad de su dirección, con meritocracia y un enfoque de integración Vertical\"."
+                }
+            },
+            {
+                "name": "Nueva Constitución / Cambio de modelo económico",
+                "keiko": {
+                    "reciente": "\"La Constitución de 1993 le dio autonomía a varias instituciones políticas de nuestro país, entre ellas al BCR, lo que ha permitido que nuestra moneda se convierta en una de las más sólidas y líderes en América Latina. Logró el mayor crecimiento económico de nuestra historia. Logró reducir la pobreza, pasamos del 55% en 1990 a aproximadamente 20% en el 2018\".",
+                    "fecha_reciente": "30 de enero de 2024",
+                    "fuente_reciente": "https://www.tiktok.com/@keikofujimorih/video/7329919466064661765",
+                    "anterior": "\"Fuerza Popular va a seguir defendiendo la constitución de 1993\".",
+                    "fecha_anterior": "05 de agosto de 2023",
+                    "fuente_anterior": "https://www.youtube.com/watch?v=DEBn8RyXpW8",
+                    "plan": "\"Con liderazgo, eficiencia y resultados, el objetivo es claro: alcanzar un Perú con fuerza, donde el orden sea el punto de partida para vivir con dignidad, trabajar con libertad, emprender con esperanza e invertir con confianza\"."
+                },
+                "roberto": {
+                    "reciente": "\"Haremos un nuevo pacto social, una asamblea constituyente, una nueva constitución que marque el inicio de la nueva peruanidad del siglo XXI\".",
+                    "fecha_reciente": "28 de marzo de 2026",
+                    "fuente_reciente": "https://www.facebook.com/reel/1267618274777130",
+                    "anterior": "\"Es importante un nuevo comienzo patriótico y de soberanía con una nueva constitución. Nuestra constitución, que ha convertido todo en negocio, hoy es un monstruo porque han hecho una asamblea constituyente a puertas cerradas quitando el derecho de referéndum al pueblo\".",
+                    "fecha_anterior": "22 de marzo de 2026",
+                    "fuente_anterior": "https://www.youtube.com/watch?v=h_A7atnJYSY&t=817s",
+                    "plan": "\"La razón fundamental por la que debe hacerse una reforma sustancial de la Constitución es recuperar la soberanía nacional sobre los recursos naturales que pertenecen a las poblaciones que integran la nación peruana\".",
+                    "plan_2da": "\"Se impulsará una Constitución de consenso a través del diálogo nacional, que involucre a todos los sectores y a la sociedad en su conjunto, siguiendo las vías democráticas que la Carta Política y la ley contemplan\"."
+                }
+            },
+            {
+                "name": "Rol del BCR / Julio Velarde",
+                "keiko": {
+                    "reciente": "\"El Perú, por ejemplo, cuando tuvo la hiperinflación, aprendió que lo que necesitábamos tener era un Banco Central de Reserva autónomo e independiente\".",
+                    "fecha_reciente": "09 de abril de 2026",
+                    "fuente_reciente": "https://www.facebook.com/reel/777234608600382",
+                    "anterior": "\"Vamos a defender la autonomía del Banco Central de Reserva para garantizar que la inflación en nuestro país sea una de las más bajas en Latinoamérica\".",
+                    "fecha_anterior": "05 de abril de 2026",
+                    "fuente_anterior": "https://www.youtube.com/watch?v=LdyUswgwnYk",
+                    "plan": "\"Estabilidad económica: Aseguramiento de la independencia del BCRP y el respeto a los contratos\"."
+                },
+                "roberto": {
+                    "reciente": "\"Estamos en la capacidad de visitarlo, conversar con él [Velarde], tomar un buen café de Quillabamba o de Jaén, dialogar nuestros puntos en desencuentro en el marco de lo que ha dicho JPP. Reafirmamos y hemos dicho que la autonomía del BCR la defendemos\".",
+                    "fecha_reciente": "18 de abril de 2026",
+                    "fuente_reciente": "https://web.facebook.com/reel/3003210329875901",
+                    "anterior": "\"Señor Julio Velarde, usted ya fue desfasado. Nuestro gobierno no lo sostendrá ni un día en el gobierno del pueblo. (...) No nos representa, en nuestro primer día de gobierno lo vamos a echar, porque es usted una vergüenza. Solamente ha gobernado para mantener contentos y felices a las empresas transnacionales, a sus amos\".",
+                    "fecha_anterior": "29 de marzo de 2026",
+                    "fuente_anterior": "https://www.youtube.com/watch?v=sAe0CDro8bs",
+                    "plan": "No se menciona.",
+                    "plan_2da": "\"Respetaremos la autonomía constitucional del Banco Central de Reserva y garantizaremos continuidad técnica y cumplimiento de las reglas fiscales con déficit fiscal bajo control\"."
+                }
+            },
+            {
+                "name": "Reforma tributaria / Impuestos",
+                "keiko": {
+                    "reciente": "",
+                    "fecha_reciente": "",
+                    "fuente_reciente": "",
+                    "anterior": "",
+                    "fecha_anterior": "",
+                    "fuente_anterior": "",
+                    "plan": "\"Impulsaremos una reforma de la administración tributaria orientada a ampliar la base contributiva y a fortalecer la recaudación -sin aumentar la presión sobre los sectores formales ya contribuyentes y cumplidores-\"."
+                },
+                "roberto": {
+                    "reciente": "\"El régimen económico instalado en el 93, bajo una dictadura, solo ha enriquecido a los ricos abandonando a la mayoría de los peruanos\".",
+                    "fecha_reciente": "24 de marzo de 2026",
+                    "fuente_reciente": "https://www.youtube.com/watch?v=-ycJcQgSmoo",
+                    "anterior": "\"El año pasado [2024], estas empresas [agroexportadoras] aumentaron sus ganancias en 70% y ahora quieren pagar menos impuestos, quitándole S/ 2,000 millones anuales a la recaudación tributaria necesaria para inversión social. No es justo, no es sensato y solo beneficia a los que más tienen. Desde Juntos por el Perú votamos en contra de leyes que no permitan una tributación justa\".",
+                    "fecha_anterior": "14 de agosto de 2025",
+                    "fuente_anterior": "https://www.tiktok.com/@roberto.snchez.pa/video/7538589361009446162",
+                    "plan": "\"Crear un sistema tributario progresivo: impuesto a grandes fortunas en situación de crisis, eliminación de exoneraciones y cierre de brechas de evasión\".",
+                    "plan_2da": "\"El Perú no puede seguir permitiendo grandes flujos económicos fuera del sistema tributario mientras millones de familias cargan con el peso de la crisis. Formalizar y ordenar la economía permitirá generar mayores recursos para educación, salud, seguridad e infraestructura\"."
+                }
+            },
+            {
+                "name": "Revisión de contratos ley",
+                "keiko": {
+                    "reciente": "\"Estoy a favor de las inversiones. Tenemos que mostrar predictibilidad a los inversores, que el Estado cumple con su palabra, que las reglas tanto de ellos como del Estado se tiene que cumplir\".",
+                    "fecha_reciente": "10 de abril de 2026",
+                    "fuente_reciente": "https://www.youtube.com/watch?v=nDRkBYCnXPw",
+                    "anterior": "\"También tenemos que generar predictibilidad y confianza. Si de algo se caracteriza nuestro grupo político a lo largo de todos estos años es que hemos defendido la constitución, defendemos el estado de derecho, defendemos las normas claras\".",
+                    "fecha_anterior": "17 de marzo de 2026",
+                    "fuente_anterior": "https://www.youtube.com/watch?v=kKFJiSsUzJY",
+                    "plan": "\"Establecimiento de plazos máximos y vinculantes para autorizaciones sectoriales, evitando que inversiones estratégicas queden paralizadas indefinidamente\"."
+                },
+                "roberto": {
+                    "reciente": "\"¿Dónde está la raíz de todos los problemas? En el tejido institucional, un sistema de justicia que no persigue el delito, un régimen económico con contratos ley irrevisables. Un Estado arrodillado frente al imperio económico\".",
+                    "fecha_reciente": "24 de marzo de 2026",
+                    "fuente_reciente": "https://www.facebook.com/reel/1284430713546342",
+                    "anterior": "\"Necesitamos que se acaben los contratos ley que han sido nefastos\".",
+                    "fecha_anterior": "16 de marzo de 2026",
+                    "fuente_anterior": "https://www.youtube.com/watch?v=Ve1OvCiuTZk",
+                    "plan": "\"Asimismo, se eliminará en la Nueva Constitución el aval a los contratos Ley y los regímenes tributarios y laborales, que sólo favorecen a las grandes empresas en detrimento de los trabajadores y el interés público en general\".",
+                    "plan_2da": "\"Renegociación estratégica de los contratos de Camisea. El objetivo general es garantizar la seguridad energética, la reposición de reservas con compromisos de exploración, la masificación nacional y la industrialización\"."
+                }
+            }
+        ]
+    },
+    {
+        "id": "seguridad",
+        "title": "Seguridad y Economías Ilegales",
+        "subtopics": [
+            {
+                "name": "Salida de la Corte IDH / Pena de muerte",
+                "keiko": {
+                    "reciente": "\"Yo creo que para derrotar al terrorismo no se necesitó la pena de muerte, y creo que ahora tampoco. Lo que sí creo es que vamos a tener que salir del Pacto de San José por dos razones: Una, porque creo que hay que implementar temporalmente los jueces sin rostro. Porque hoy el temor y el miedo no solamente están en la calle, en los transportistas, en los bodegueros. Sino también en el sistema de justicia. Yo creo que parte de esta sensación de impunidad es también por el miedo que tienen los jueces, y por eso tenemos que volver a poner temporalmente el sistema jueces sin rostro, para eso tenemos que salir del pacto. Y lo segundo que tenemos que implementar es que los internos tienen que trabajar por sus alimentos de calidad\".",
+                    "fecha_reciente": "09 de abril de 2026",
+                    "fuente_reciente": "https://www.youtube.com/watch?v=wLjS-EhR6-M",
+                    "anterior": "\"Estaría de acuerdo en la pena de muerte para violadores de niños menores de 7 años\".",
+                    "fecha_anterior": "09 de febrero de 2016",
+                    "fuente_anterior": "https://www.youtube.com/watch?v=Al6aRTvH-ec",
+                    "plan": "\"Implementación de un régimen de trabajo penitenciario, que vincule la participación en actividades productivas al otorgamiento de incentivos, tal como el acceso a condiciones de la alimentación\"."
+                },
+                "roberto": {
+                    "reciente": "\"No estamos de acuerdo con denunciar al Pacto de San José, de ninguna manera. (...) Queremos paz social con justicia, mano firme con el debido proceso, los derechos humanos no son un aspecto secundario\".",
+                    "fecha_reciente": "30 de abril de 2026",
+                    "fuente_reciente": "https://www.swissinfo.ch/spa/roberto-s%C3%A1nchez-afirma-que-mantendr%C3%A1-a-per%C3%BA-en-la-corte-idh-y-no-aplicar%C3%A1-pena-de-muerte/91345326",
+                    "anterior": "\"Yo soy un provida, no puedo estar de acuerdo con la pena de muerte\".",
+                    "fecha_anterior": "27 de abril de 2026",
+                    "fuente_anterior": "https://www.youtube.com/watch?v=kaIb13yIlkQ",
+                    "plan": "No se menciona.",
+                    "plan_2da": "\"Garantizar el cumplimiento de las decisiones de la Corte IDH, adecuando la institucionalidad y el marco jurídico nacional a las exigencias del Sistema Interamericano y reafirmando la permanencia del Perú en él\"."
+                }
+            },
+            {
+                "name": "Control fronterizo y migración",
+                "keiko": {
+                    "reciente": "\"Nosotros hemos planteado […] retomar el control de las fronteras. Hoy hay un solo patrullero en la frontera con Ecuador. Vamos a comprar 1.000 patrulleros inmediatamente, pidiendo facultades. Participarán las Fuerzas Armadas junto con la Policía Nacional en este control de fronteras. Expulsaremos a los ciudadanos indocumentados\".",
+                    "fecha_reciente": "11 de abril de 2026",
+                    "fuente_reciente": "https://www.youtube.com/watch?v=CYc9A-Q2J_g",
+                    "anterior": "",
+                    "fecha_anterior": "",
+                    "fuente_anterior": "",
+                    "plan": "No se menciona."
+                },
+                "roberto": {
+                    "reciente": "\"Si perseguimos el delito de nacionales, basta un connacional, basta un internacional, hay que echarlos del país. Tenemos que tener mano firme",
+                    "fecha_reciente": "31 de mayo del 2026",
+                    "fuente_reciente": "https://www.youtube.com/watch?v=CCiQ_KBSySE",
+                    "anterior": "",
+                    "fecha_anterior": "",
+                    "fuente_anterior": "",
+                    "plan": "No se menciona."
+                }
+            }
+        ]
+    },
+    {
+        "id": "genero",
+        "title": "Género",
+        "subtopics": [
+            {
+                "name": "Aborto",
+                "keiko": {
+                    "reciente": "\"En Fuerza Popular y quien habla está a favor del aborto terapéutico en caso de que la madre corra riesgo, mas no en caso de violación\".",
+                    "fecha_reciente": "12 de febrero de 2026",
+                    "fuente_reciente": "https://www.youtube.com/watch?v=AFyXyRG1xmg",
+                    "anterior": "\"Yo estoy a favor del aborto terapéutico, pero en contra de los otros casos [como violación]\".",
+                    "fecha_anterior": "02 de octubre de 2015",
+                    "fuente_anterior": "https://elcomercio.pe/politica/gobierno/keiko-fujimori-cinco-respuestas-discurso-harvard-223527-noticia/",
+                    "plan": "No se menciona."
+                },
+                "roberto": {
+                    "reciente": "\"No es una decisión feliz, pero ha de primar el derecho a integridad de la víctima que es una niña. Condenable negarle ese imperativo ético. El aborto terapéutico\".",
+                    "fecha_reciente": "09 de agosto de 2023",
+                    "fuente_reciente": "https://x.com/RobertoSanchP/status/1689344169200787456",
+                    "anterior": "",
+                    "fecha_anterior": "",
+                    "fuente_anterior": "",
+                    "plan": "No se menciona.",
+                    "plan_2da": "\"Actualización y fortalecimiento de la política de aborto terapéutico que garantice el cumplimiento de los estándares internacionales de derechos humanos, y de manera prioritaria accedan consentidamente niñas víctimas de violación sexual. Además, asegurar la implementación efectiva de la Guía Técnica en todo el país, garantizando el acceso oportuno, seguro y digno a este derecho en todos los establecimientos de salud públicos\"."
+                }
+            },
+            {
+                "name": "Matrimonio homosexual / Unión civil",
+                "keiko": {
+                    "reciente": "\"Yo estoy a favor de la unión civil cuando se trata de defender el patrimonio\".",
+                    "fecha_reciente": "20 de enero de 2026",
+                    "fuente_reciente": "https://www.youtube.com/watch?v=WYvudph7DAs",
+                    "anterior": "\"Estoy a favor de la unión civil en cuanto se refiere a respetar los derechos patrimoniales de las parejas, pero no en la adopción de niños\".",
+                    "fecha_anterior": "02 de octubre de 2015",
+                    "fuente_anterior": "https://elcomercio.pe/politica/gobierno/keiko-fujimori-cinco-respuestas-discurso-harvard-223527-noticia/",
+                    "plan": "No se menciona."
+                },
+                "roberto": {
+                    "reciente": "\"Este 28 de junio, reconocemos la lucha histórica del pueblo LGBTIQ+. El orgullo como resistencia frente a un sistema que discrimina y excluye. Reafirmamos nuestro compromiso con un país donde la diversidad sea ley, vida y dignidad\".",
+                    "fecha_reciente": "28 de junio de 2025",
+                    "fuente_reciente": "https://x.com/RobertoSanchP/status/1939102122428989467",
+                    "anterior": "\"La tolerancia, el respeto a las minorías, debe ser condición de una democracia\".",
+                    "fecha_anterior": "18 de julio de 2023",
+                    "fuente_anterior": "https://andina.pe/agencia/noticia-congresista-sanchez-respalda-proyecto-union-civil-entre-parejas-del-mismo-sexo-947949.aspx",
+                    "plan": "No se menciona."
+                }
+            }
+        ]
+    }
+];
+
+// ==========================================================================
+// LÓGICA DE INTERFAZ E INYECCIÓN EN EL DOM
+// ==========================================================================
+document.addEventListener("DOMContentLoaded", () => {
+    cambiarMacroCategoria(categoriaActual);
 });
 
-// ===============================================
-// 5. CONTROLADOR NARRATIVO 
-// ===============================================
-// NUEVA FUNCIÓN PARA LOS PINES DE CIUDADES
-// NUEVA FUNCIÓN PARA LOS PINES DE CIUDADES (Dualidad Histórica vs Nueva)
-function gestionarPines(paso) {
-    capaPines.clearLayers();
+function cambiarMacroCategoria(idCategoria) {
+    categoriaActual = idCategoria;
     
-    if (paso === 7) {
-        // 1. Dibuja primero las históricas (Quedan de fondo)
-        DATA.ciudades_historicas.forEach(c => {
-            const iconoHist = L.divIcon({ className: 'city-pin-historica', iconSize: [8, 8] });
-            L.marker([c.lat, c.lng], { icon: iconoHist })
-             .bindTooltip(c.nombre, { className: 'custom-tooltip', direction: 'top' })
-             .addTo(capaPines);
-        });
-
-        // 2. Dibuja las nuevas encima (Destacan en color cian)
-        DATA.ciudades_nuevas.forEach(c => {
-            const iconoNueva = L.divIcon({ className: 'city-pin-nueva', iconSize: [10, 10] }); // Ligeramente más grandes
-            L.marker([c.lat, c.lng], { icon: iconoNueva })
-             .bindTooltip(c.nombre, { className: 'custom-tooltip', direction: 'top' })
-             .addTo(capaPines);
-        });
-        
-    } else if (paso === 8) {
-        // En el paso 8 muestra SOLO Ciudad de México, con un pin especial
-        const iconoMx = L.divIcon({ className: 'city-pin-mexico', iconSize: [18, 18] });
-        L.marker([19.4326, -99.1332], { icon: iconoMx })
-             .bindTooltip("Ciudad de México", { className: 'custom-tooltip', direction: 'top', permanent: true })
-             .addTo(capaPines);
-    }
-}
-
-// VARIABLES GLOBALES PARA VIZ 9
-let animaciónImposibilidadJugada = false;
-
-function generarWaffleChart() {
-    const contenedor = document.getElementById('waffle-grid');
-    contenedor.innerHTML = ''; 
-    // Creamos 100 puntitos (100%)
-    for(let i = 0; i < 100; i++) {
-        let dot = document.createElement('div');
-        dot.className = 'waffle-dot';
-        // Solo el último punto brilla (representa el 0.9% redondeado a 1)
-        if (i === 99) dot.classList.add('active');
-        contenedor.appendChild(dot);
-    }
-}
-// Ejecutamos la creación del grid al inicio
-generarWaffleChart();
-
-
-function gestionarBanderas(paso) {
-    capaBanderas.clearLayers();
-    if (paso === 3) {
-        DATA.banderas.forEach(b => {
-            // Uso de la nueva clase rectangular
-            const htmlBandera = `<img src="https://flagcdn.com/w40/${b.iso2}.png" class="flag-rectangular" alt="${b.iso}">`;
-            const iconoBandera = L.divIcon({ 
-                html: htmlBandera, 
-                className: 'map-flag-icon', 
-                iconSize: [45, 30], 
-                iconAnchor: [22, 15] // Centra el rectángulo
-            });
-            L.marker([b.lat, b.lng], { icon: iconoBandera }).addTo(capaBanderas);
-        });
-    }
-}
-
-function actualizarLeyenda(paso) {
-    const contenedor = document.getElementById('leyenda-dinamica');
-    if (CONFIG.leyendas[paso]) {
-        
-        // LÓGICA DE TÍTULO DE LEYENDA
-        const tituloLeyenda = paso === 2 ? "Campeonatos del mundo organizados" : "Leyenda";
-        let html = `<div class="legend-title">${tituloLeyenda}</div>`;
-        
-        CONFIG.leyendas[paso].forEach(item => {
-            if (item.valor !== undefined) {
-                const porcentaje = (item.valor / item.max) * 100;
-                html += `
-                <div class="legend-item-group">
-                    <div class="legend-item">
-                        <div class="legend-color" style="background-color: ${item.color}; box-shadow: 0 0 8px ${item.color};"></div>
-                        ${item.texto}
-                    </div>
-                    <div class="legend-bar-wrapper">
-                        <div class="legend-bar-bg">
-                            <div class="legend-bar-fill" style="width: ${porcentaje}%; background-color: ${item.color};"></div>
-                        </div>
-                        <div class="legend-bar-value">${item.valor}</div>
-                    </div>
-                </div>`;
-            } else {
-                html += `<div class="legend-item"><div class="legend-color" style="background-color: ${item.color}; box-shadow: 0 0 8px ${item.color};"></div>${item.texto}</div>`;
-            }
-        });
-        contenedor.innerHTML = html;
-        contenedor.classList.remove('ui-hidden');
-    } else {
-        contenedor.classList.add('ui-hidden');
-    }
-}
-
-let pasoRenderizado = 0; 
-// NUEVO: Objeto fantasma para animar los números de forma segura, sin romper GSAP con las comas
-let contadoresViz = { pros: 0, wc: 0 };
-
-function procesarPasoNarrativo(paso) {
-    if (!geoJsonLayer) return;
-
-    // FILTRO ANTI-BUGS: Si el mapa ya pintó este paso, ignora el scroll repetido.
-    if (pasoRenderizado === paso) return; 
-    pasoRenderizado = paso; // Registra que ya se procesó
-    pasoActualGlobal = paso; 
-
-    actualizarLeyenda(paso);
-    gestionarBanderas(paso);
-    gestionarPines(paso);
-
-    // 1. APAGAR TODOS LOS PANELES Y ESCENARIOS POR DEFECTO
-    document.getElementById('panel-extintos').classList.add('ui-hidden');
-    document.getElementById('panel-mexico').classList.add('ui-hidden');
-    
-    const customVizStage = document.getElementById('custom-viz-stage');
-    const vizImposibilidad = document.getElementById('viz-imposibilidad');
-    const vizGoles = document.getElementById('viz-goles');
-    
-    if(customVizStage) customVizStage.classList.add('ui-hidden');
-    if(vizImposibilidad) vizImposibilidad.classList.add('ui-hidden');
-    if(vizGoles) vizGoles.classList.add('ui-hidden');
-
-    // 2. APAGAR/PRENDER EL MAPA (A partir del paso 9, el mapa y leyenda desaparecen)
-    const ocultarMapa = paso >= 9;
-    document.getElementById('map').style.opacity = ocultarMapa ? "0" : "1";
-    document.getElementById('ui-overlays').style.opacity = ocultarMapa ? "0" : "1";
-
-    if (ocultarMapa && customVizStage) {
-        customVizStage.classList.remove('ui-hidden');
-    }
-
-    // 3. ENCENDIDO DE PANELES ESPECÍFICOS SEGÚN EL PASO
-    if(paso === 5) document.getElementById('panel-extintos').classList.remove('ui-hidden');
-    if(paso === 8) document.getElementById('panel-mexico').classList.remove('ui-hidden');
-
-    // ============================================
-    // ESCENAS PERSONALIZADAS SIN MAPA (9 y 10)
-    // ============================================
-    
-    // PASO 9: VISUALIZACIÓN DE IMPOSIBILIDAD ESTADÍSTICA
-    if(paso === 9 && vizImposibilidad) {
-        vizImposibilidad.classList.remove('ui-hidden');
-        
-        if (typeof animaciónImposibilidadJugada !== 'undefined' && !animaciónImposibilidadJugada) {
-            // FIX: Animamos el objeto "contadoresViz" y solo actualizamos el HTML con el formato al final
-            gsap.to(contadoresViz, {
-                pros: 128694,
-                duration: 2.5,
-                ease: "power2.out",
-                onUpdate: () => {
-                    document.getElementById("count-pros").innerHTML = Math.round(contadoresViz.pros).toLocaleString('en-US');
-                }
-            });
-            
-            gsap.to(contadoresViz, {
-                wc: 1248,
-                duration: 2.5,
-                delay: 0.5,
-                ease: "power2.out",
-                onUpdate: () => {
-                    document.getElementById("count-wc").innerHTML = Math.round(contadoresViz.wc).toLocaleString('en-US');
-                }
-            });
-            animaciónImposibilidadJugada = true;
+    document.querySelectorAll(".nav-tab").forEach(tab => {
+        if(tab.getAttribute("data-target") === idCategoria) {
+            tab.classList.add("active");
+        } else {
+            tab.classList.remove("active");
         }
-    }
-
-    // PASO 10: GRÁFICO DE GOLES HISTÓRICOS
-    if(paso === 10 && vizGoles) {
-        vizGoles.classList.remove('ui-hidden');
-        
-        // FIX: Matamos cualquier animación previa para que no pelee con el nuevo estado
-        gsap.killTweensOf(".goal-bar-fill");
-        
-        gsap.to(".goal-bar-fill", {
-            width: function(index, target) {
-                return target.getAttribute("data-width") + "%";
-            },
-            duration: 1.2,
-            ease: "power3.out",
-            stagger: 0.15 
-        });
-    } else {
-        // FIX: Matamos la animación antes de forzar el reseteo a 0%
-        gsap.killTweensOf(".goal-bar-fill");
-        gsap.set(".goal-bar-fill", { width: "0%" });
-    }
-
-    // ============================================
-    // CONTROL DE MAPA Y VECTORES (Solo si el mapa es visible)
-    // ============================================
-    
-    // OPTIMIZACIÓN DE RENDIMIENTO
-    if (!ocultarMapa) {
-        
-        if (CONFIG.camaras[paso]) {
-            map.flyTo(CONFIG.camaras[paso].centro, CONFIG.camaras[paso].zoom, {
-                duration: 1.5, easeLinearity: 0.25
-            });
-        }
-
-        geoJsonLayer.eachLayer(layer => {
-            const prop = layer.feature.properties;
-            const iso = prop.ISO_A3 || prop.iso_a3 || prop.adm0_a3;
-            
-            let colorFondo = CONFIG.colores.base;
-            let opacidad = 0.8;
-            let tieneNeon = false;
-
-            switch(paso) {
-                case 1:
-                    if (DATA.anfitriones.includes(iso)) { colorFondo = CONFIG.colores.anfitrion; tieneNeon = true; }
-                    else { colorFondo = CONFIG.colores.vacio; opacidad = 0.3; }
-                    break;
-                case 2:
-                    if (DATA.anfitriones.includes(iso)) {
-                        const cont = DATA.continentes[iso];
-                        if (cont === 'America') colorFondo = CONFIG.colores.america;
-                        else if (cont === 'Europa') colorFondo = CONFIG.colores.europa;
-                        else if (cont === 'Asia') colorFondo = CONFIG.colores.asia;
-                        else if (cont === 'Africa') colorFondo = CONFIG.colores.africa;
-                        tieneNeon = true;
-                    } else { colorFondo = CONFIG.colores.vacio; opacidad = 0.3; }
-                    break;
-                case 3:
-                    if (['USA', 'MEX', 'CAN'].includes(iso)) { colorFondo = CONFIG.colores.co_2026; tieneNeon = true; }
-                    else if (['JPN', 'KOR'].includes(iso)) { colorFondo = CONFIG.colores.co_2002; tieneNeon = true; }
-                    else { colorFondo = CONFIG.colores.vacio; opacidad = 0.3; }
-                    break;
-                case 4:
-                    if (DATA.participantes_2026.includes(iso)) { colorFondo = CONFIG.colores.part_2026; tieneNeon = true; }
-                    else if (DATA.historicos_fuera.includes(iso)) { colorFondo = CONFIG.colores.part_hist; tieneNeon = true;}
-                    else { colorFondo = CONFIG.colores.vacio; opacidad = 0.3; }
-                    break;
-                case 5: 
-                    colorFondo = CONFIG.colores.vacio; 
-                    opacidad = 0.15;
-                    break;
-                case 6: 
-                    if (DATA.campeones_locales.includes(iso)) { colorFondo = CONFIG.colores.campeon_local; tieneNeon = true; }
-                    else if (DATA.no_campeones_locales.includes(iso)) { colorFondo = CONFIG.colores.no_campeon; tieneNeon = true; }
-                    else { colorFondo = CONFIG.colores.vacio; opacidad = 0.3; }
-                    break;
-                case 7: 
-                    colorFondo = CONFIG.colores.vacio; 
-                    opacidad = 0.15; 
-                    break;
-                case 8: 
-                    if (iso === 'MEX') { colorFondo = CONFIG.colores.america; tieneNeon = true; }
-                    else { colorFondo = CONFIG.colores.vacio; opacidad = 0.15; }
-                    break;
-            }
-
-            layer.setStyle({ 
-                fillColor: colorFondo, 
-                fillOpacity: opacidad,
-                color: tieneNeon ? colorFondo : CONFIG.colores.borde,
-                weight: tieneNeon ? 1.5 : 0.9,
-                className: tieneNeon ? 'pais-neon' : ''
-            });
-            
-            if(tieneNeon) {
-                layer.bringToFront();
-            }
-        });
-    }
-}
-
-
-
-// ===============================================
-// MOTOR GSAP SCROLL-JACKING (ACTUALIZADO)
-// ===============================================
-function iniciarMotorGSAP() {
-    ScrollTrigger.create({ trigger: "#gsap-pin-container", start: "top top", end: "bottom bottom", pin: "#map-stage", pinSpacing: false });
-    
-    gsap.utils.toArray('.step').forEach((step) => {
-        let nPaso = parseInt(step.getAttribute("data-step"));
-        let card = step.querySelector('.step-wrap') || step.querySelector('.step-card');
-        
-        ScrollTrigger.create({
-            trigger: step, 
-            start: "top 50%", /* Se dispara exactamente al medio del imán */
-            end: "bottom 50%",
-            onEnter: () => { 
-                gsap.to(card, { opacity: 1, duration: 0.4, overwrite: true }); 
-                procesarPasoNarrativo(nPaso); 
-            },
-            onEnterBack: () => { 
-                gsap.to(card, { opacity: 1, duration: 0.4, overwrite: true }); 
-                procesarPasoNarrativo(nPaso); 
-            },
-            onLeave: () => gsap.to(card, { opacity: 0.2, duration: 0.4, overwrite: true }),
-            onLeaveBack: () => gsap.to(card, { opacity: 0.2, duration: 0.4, overwrite: true })
-        });
     });
+
+    const contenedor = document.getElementById("comparador-container");
+    const dataCategoria = BASE_DATOS_ELECTORAL.find(c => c.id === idCategoria);
+
+    if (!dataCategoria || !dataCategoria.subtopics.length) {
+        contenedor.innerHTML = `<div class="cargando-msj">No hay registros cargados para esta categoría.</div>`;
+        return;
+    }
+
+    let htmlAcumulado = "";
+
+    dataCategoria.subtopics.forEach(subtopic => {
+        let iconoSubtema = "🔹";
+        if (subtopic.name.toLowerCase().includes("petro")) iconoSubtema = "🛢️";
+        if (subtopic.name.toLowerCase().includes("bcr") || subtopic.name.toLowerCase().includes("velarde")) iconoSubtema = "🏦";
+        if (subtopic.name.toLowerCase().includes("tributaria") || subtopic.name.toLowerCase().includes("impuestos")) iconoSubtema = "💰";
+        if (subtopic.name.toLowerCase().includes("contratos")) iconoSubtema = "📜";
+        if (subtopic.name.toLowerCase().includes("cidh") || subtopic.name.toLowerCase().includes("muerte")) iconoSubtema = "⚖️";
+        if (subtopic.name.toLowerCase().includes("frontera") || subtopic.name.toLowerCase().includes("migrac")) iconoSubtema = "🛂";
+        if (subtopic.name.toLowerCase().includes("miner")) iconoSubtema = "⛏️";
+        if (subtopic.name.toLowerCase().includes("genero") || subtopic.name.toLowerCase().includes("aborto")) iconoSubtema = "🩺";
+        if (subtopic.name.toLowerCase().includes("constituc") || subtopic.name.toLowerCase().includes("modelo")) iconoSubtema = "📖";
+        if (subtopic.name.toLowerCase().includes("matrimonio") || subtopic.name.toLowerCase().includes("unión civil")) iconoSubtema = "🏳️‍🌈";
+
+        htmlAcumulado += `
+        <div class="subtema-bloque">
+            <h3 class="subtema-title">${iconoSubtema} ${subtopic.name}</h3>
+            <div class="split-layout">
+                ${armarTarjeta(subtopic.keiko, CONFIG_UI.candidatos["Keiko Fujimori"], subtopic.name)}
+                ${armarTarjeta(subtopic.roberto, CONFIG_UI.candidatos["Roberto Sánchez"], subtopic.name)}
+            </div>
+        </div>
+        `;
+    });
+
+    contenedor.innerHTML = htmlAcumulado;
 }
+
+function armarTarjeta(perfilData, configCand, nombreSubtema) {
+    // Si no hay datos absolutos del perfil, fail-safe básico
+    if (!perfilData) {
+        return `
+        <article class="cand-card" style="border-top-color: #ccc; background-color: #fafafa">
+            <p class="quote-text" style="color:#888; font-style:normal;">Sin datos registrados sobre este eje.</p>
+        </article>
+        `;
+    }
+
+    // Normalización forzosa del plan antiguo
+    let textoPlan = perfilData.plan;
+    const planesVacios = ["sin mención", "no se detalla", "no hay mención", "", "no se menciona."];
+    if (!textoPlan || planesVacios.includes(textoPlan.toLowerCase().trim().replace(/["']/g, ""))) {
+        textoPlan = "No se menciona.";
+    }
+
+    let htmlCita = "";
+    if (perfilData.reciente && perfilData.reciente.trim() !== "") {
+        htmlCita = `<p class="quote-text">${perfilData.reciente}</p>
+        <div class="meta-data">
+            🗓 Fecha: ${perfilData.fecha_reciente} | <a href="${perfilData.fuente_reciente}" target="_blank">Ver fuente</a>
+        </div>`;
+    } else {
+        htmlCita = `<p class="quote-text" style="color:#777; font-style:normal;">Sin declaraciones verbales recientes registradas en prensa.</p>`;
+    }
+
+    let esCambioPostura = false;
+    if (
+        (configCand.nombre === "Roberto Sánchez" && (nombreSubtema.toLowerCase().includes("bcr") || nombreSubtema.toLowerCase().includes("velarde"))) ||
+        (configCand.nombre === "Keiko Fujimori" && (nombreSubtema.toLowerCase().includes("cidh") || nombreSubtema.toLowerCase().includes("muerte")))
+    ) {
+        esCambioPostura = true;
+    }
+
+    let htmlFlipFlop = "";
+    if (perfilData.anterior && perfilData.anterior.trim() !== "" && esCambioPostura) {
+        let alertaCambioHtml = `<div class="alerta-cambio">🚨 ALERTA de Cambio de Postura</div>`;
+        let autoAbrir = true;
+        
+        htmlFlipFlop = `
+        ${alertaCambioHtml}
+        <button class="btn-flipflop ${autoAbrir ? 'activo' : ''}" style="color: ${autoAbrir ? '#fff' : configCand.colorPrincipal}; background-color: ${autoAbrir ? configCand.colorPrincipal : '#fff'}; border-color: ${configCand.colorPrincipal}" onclick="toggleArchivoHistorico(this)">
+            <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" fill="none" stroke-width="2.5" style="vertical-align: middle; margin-right: 4px;">
+                ${autoAbrir 
+                  ? '<line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line>' 
+                  : '<polyline points="23 4 23 10 17 10"></polyline><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path>'}
+            </svg>
+            ${autoAbrir ? 'Ocultar Declaración previa' : 'Declaración anterior'}
+        </button>
+        <div class="contradiccion-box" style="display:${autoAbrir ? 'block' : 'none'}; border-left: 3px solid ${configCand.colorPrincipal}">
+            <span class="contradiccion-label">Declaración previa:</span>
+            <p class="quote-text-old">${perfilData.anterior}</p>
+            <div class="meta-data" style="margin:0;">
+                🗓 Fecha: ${perfilData.fecha_anterior} | <a href="${perfilData.fuente_anterior}" target="_blank">Ver fuente</a>
+            </div>
+        </div>
+        `;
+    }
+
+    let htmlPlan = "";
+    // El switcher se inyecta dinámicamente preservando la caja de plan de gobierno oficial
+    if (configCand.nombre === "Roberto Sánchez" && perfilData.plan_2da) {
+        let idPlanUnico = `id-text-${nombreSubtema.replace(/\s+/g, '-').replace(/\//g, '-')}`.toLowerCase();
+        htmlPlan = `
+        <div class="plan-badge" style="border-left-color: ${configCand.colorPrincipal}">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; flex-wrap: wrap; gap: 4px;">
+                <span class="plan-badge-title">PLAN DE GOBIERNO OFICIAL:</span>
+                <button class="btn-plan-switcher" data-orig="${textoPlan.replace(/"/g, '&quot;')}" data-2da="${perfilData.plan_2da.replace(/"/g, '&quot;')}" onclick="togglePlanDocumento(this, '${idPlanUnico}')">
+                    📄 Revisar nuevo plan de gobierno
+                </button>
+            </div>
+            <div id="${idPlanUnico}" class="plan-text-container">${textoPlan}</div>
+        </div>
+        `;
+    } else {
+        htmlPlan = `
+        <div class="plan-badge" style="border-left-color: ${configCand.colorPrincipal}">
+            <span class="plan-badge-title">PLAN DE GOBIERNO OFICIAL:</span>
+            <div class="plan-text-container">${textoPlan}</div>
+        </div>
+        `;
+    }
+
+    return `
+    <article class="cand-card" style="border-top-color: ${configCand.colorPrincipal}; background-color: ${configCand.colorFondo}">
+        <div>
+            <div class="cand-header-sticky">
+                <div class="cand-profile-row">
+                    <div class="cand-bubbles">
+                        <img src="${configCand.fotoCandidato}" alt="${configCand.nombre}" class="bubble-img face" onerror="this.style.display='none'">
+                        <img src="${configCand.fotoPartido}" alt="${configCand.partido}" class="bubble-img party" onerror="this.style.display='none'">
+                    </div>
+                    <div class="cand-info">
+                        <span class="cand-name" style="color: ${configCand.colorPrincipal}">${configCand.nombre}</span>
+                        <span class="cand-party">${configCand.partido}</span>
+                    </div>
+                </div>
+            </div>
+            ${htmlCita}
+        </div>
+        <div>
+            ${htmlFlipFlop}
+            ${htmlPlan}
+        </div>
+    </article>
+    `;
+}
+
+window.togglePlanDocumento = function(btnElement, targetId) {
+    const contenedorTexto = document.getElementById(targetId);
+    const textoOriginal = btnElement.getAttribute('data-orig');
+    const textoSegunda = btnElement.getAttribute('data-2da');
+
+    if (btnElement.classList.contains('active-2da')) {
+        contenedorTexto.innerHTML = textoOriginal;
+        btnElement.classList.remove('active-2da');
+        btnElement.innerHTML = '📄 Revisar nuevo plan de gobierno';
+    } else {
+        contenedorTexto.innerHTML = textoSegunda;
+        btnElement.classList.add('active-2da');
+        btnElement.innerHTML = '📄 Ver plan original';
+    }
+};
+
+window.toggleArchivoHistorico = function(btnElement) {
+    const panelOculto = btnElement.nextElementSibling;
+    const color = btnElement.style.borderColor;
+    if (panelOculto.style.display === "none") {
+        panelOculto.style.display = "block";
+        btnElement.classList.add("active");
+        btnElement.style.backgroundColor = color;
+        btnElement.style.color = "#fff";
+        btnElement.innerHTML = `
+            <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" fill="none" stroke-width="2.5" style="vertical-align: middle; margin-right: 4px;">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+            Ocultar Declaracion previa
+        `;
+    } else {
+        panelOculto.style.display = "none";
+        btnElement.classList.remove("active");
+        btnElement.style.backgroundColor = "#fff";
+        btnElement.style.color = color;
+        btnElement.innerHTML = `
+            <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" fill="none" stroke-width="2.5" style="vertical-align: middle; margin-right: 4px;">
+                <polyline points="23 4 23 10 17 10"></polyline>
+                <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path>
+            </svg>
+            VER DECLARACIÓN ANTERIOR
+        `;
+    }
+};
